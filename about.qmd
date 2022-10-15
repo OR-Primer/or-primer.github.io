@@ -1,5 +1,18 @@
 ---
-title: "About"
+title: "About OR Primer"
+date: "2022-10-15"
 ---
 
-About this site
+OR Primer is a collection of resources to teach fundamentals of computational optimization regarding Linear Programming and Mixed Integer (Linear) Programming. 
+
+This collection targets those who want to get a jumpstart without any technical and theoretical details, except the absolutely required fundamental terms. Therefore, there will be lots of examples.
+
+Primary focus of OR Primer is to give the reader the ability to discern if a "business" problem can be converted to an OR (LP or MILP) problem. In essence "yes" or "no" depends on the answers of the following questions: "Is there a decision to be made? (_i.e. Decision Variables_)", "Are there limitations and requirements? (_i.e. Constraints_)", "What is the ultimate aim? (_i.e. Objective Function_)" and "Can we describe the problem in linear terms? (_i.e. Linearity_)". 
+
+At the second stage, we will focus on transferring the "business" problem from verbal to mathematical form. Reader is expected to get a sense of how to write a mathematical model in a standard way. 
+
+Finally, we will learn how to describe the model in code. We will learn about Algebraic Modelling Languages (AML) and solvers. Our focus will be on scripting languages such as R, Python and Julia.
+
+Optionally, we will discuss theory. Topics such as simplex, duality, interior points etc. will be briefly explained but it is up to the reader to really dive in the theory or if she is just happy with the coding.
+
+There will be lots of external resources. Feel free to add them on [Discussions](https://github.com/OR-Primer/or-primer.github.io/discussions).
