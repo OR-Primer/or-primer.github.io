@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Berk Orbay">
 
-<title>Operations Research Primer</title>
+<title>Operations Research Primer - 3&nbsp; Giapetto Example</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -26,7 +25,7 @@ ul.task-list{list-style: none;}
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./linprog.html" rel="next">
+<link href="./linmodel.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -63,6 +62,7 @@ window.MathJax = {
 };
 </script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -72,7 +72,7 @@ window.MathJax = {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Operations Research Primer</h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Giapetto Example</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -114,7 +114,7 @@ window.MathJax = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -132,7 +132,7 @@ window.MathJax = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./giapetto.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Giapetto Example</span></a>
+  <a href="./giapetto.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Giapetto Example</span></a>
   </div>
 </li>
       </ul>
@@ -146,7 +146,14 @@ window.MathJax = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"> <span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#problem" id="toc-problem" class="nav-link active" data-scroll-target="#problem"> <span class="header-section-number">3.1</span> Problem</a></li>
+  <li><a href="#model-building-steps" id="toc-model-building-steps" class="nav-link" data-scroll-target="#model-building-steps"> <span class="header-section-number">3.2</span> Model Building Steps</a></li>
+  <li><a href="#mathematical-model" id="toc-mathematical-model" class="nav-link" data-scroll-target="#mathematical-model"> <span class="header-section-number">3.3</span> Mathematical Model</a>
+  <ul class="collapse">
+  <li><a href="#decision-variables" id="toc-decision-variables" class="nav-link" data-scroll-target="#decision-variables"> <span class="header-section-number">3.3.1</span> Decision Variables</a></li>
+  <li><a href="#model" id="toc-model" class="nav-link" data-scroll-target="#model"> <span class="header-section-number">3.3.2</span> Model</a></li>
+  <li><a href="#constraints" id="toc-constraints" class="nav-link" data-scroll-target="#constraints"> <span class="header-section-number">3.3.3</span> Constraints</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -155,19 +162,13 @@ window.MathJax = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Operations Research Primer</h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Giapetto Example</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Berk Orbay </p>
-          </div>
-  </div>
     
     
   </div>
@@ -175,17 +176,62 @@ window.MathJax = {
 
 </header>
 
-<section id="introduction" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
-<p>OR Primer is a collection of resources to teach fundamentals of computational optimization regarding Linear Programming and Mixed Integer (Linear) Programming.</p>
-<p>This collection targets those who want to get a jumpstart without any technical and theoretical details, except the absolutely required fundamental terms. Therefore, there will be lots of examples.</p>
-<p>Primary focus of OR Primer is to give the reader the ability to discern if a “business” problem can be converted to an OR (LP or MILP) problem. In essence “yes” or “no” depends on the answers of the following questions: “Is there a decision to be made? (<em>i.e.&nbsp;Decision Variables</em>)”, “Are there limitations and requirements? (<em>i.e.&nbsp;Constraints</em>)”, “What is the ultimate aim? (<em>i.e.&nbsp;Objective Function</em>)” and “Can we describe the problem in linear terms? (<em>i.e.&nbsp;Linearity</em>)”.</p>
-<p>At the second stage, we will focus on transferring the “business” problem from verbal to mathematical form. Reader is expected to get a sense of how to write a mathematical model in a standard way.</p>
-<p>Finally, we will learn how to describe the model in code. We will learn about Algebraic Modelling Languages (AML) and solvers. Our focus will be on scripting languages such as R, Python and Julia.</p>
-<p>Optionally, we will discuss theory. Topics such as simplex, duality, interior points etc. will be briefly explained but it is up to the reader to really dive in the theory or if she is just happy with the coding.</p>
-<p>There will be lots of external resources. Feel free to add them on <a href="https://github.com/OR-Primer/or-primer.github.io/discussions">Discussions</a>.</p>
+<p>Giapetto is the introductory example of Linear Programming. This example is directly taken from <a href="https://www.amazon.com/Operations-Research-Applications-Algorithms-InfoTrac/dp/0534380581">Winston’s Operations Research (4th Edition)</a>.</p>
+<section id="problem" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="problem"><span class="header-section-number">3.1</span> Problem</h2>
+<p>“Giapetto’s Woodcarving, Inc., manufactures two types of wooden toys: <strong>soldiers</strong> and <strong>trains</strong>.</p>
+<p>A soldier sells for <strong>$27</strong> and uses <strong>$10</strong> worth of raw materials. Each soldier that is manufactured increases Giapetto’s variable labor and overhead costs by <strong>$14</strong>. A train sells for <strong>$21</strong> and uses <strong>$9</strong> worth of raw materials. Each train built increases Giapetto’s variable labor and overhead costs by <strong>$10</strong>.</p>
+<p>The manufacture of wooden soldiers and trains requires two types of skilled labor: <strong>carpentry</strong> and <strong>finishing</strong>. A soldier requires <strong>2 hours</strong> of finishing labor and <strong>1 hour</strong> of carpentry labor. A train requires <strong>1 hour</strong> of finishing labor and <strong>1 hour</strong> of carpentry labor.</p>
+<p>Each week, Giapetto can acquire all of the needed raw material, but he is only allotted <strong>100 finishing hours</strong> and <strong>80 carpentry hours</strong>. There is an unlimited demand for trains. However, <strong>at most, 40 soldiers are sold</strong> each week.</p>
+<p>Giapetto wants to <strong>maximize his weekly profit</strong> (Revenues - Costs). Formulate a mathematical model for Giapetto’s situation that can be used to maximize Giapetto’s weekly profit.”</p>
+<p>Let’s convert problem statement into a number of model building steps in the next section.</p>
+</section>
+<section id="model-building-steps" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="model-building-steps"><span class="header-section-number">3.2</span> Model Building Steps</h2>
+<ol type="1">
+<li><p>Let’s calculate the net profit of a soldier and a train, respectively. Sale price of a soldier is <strong>$27</strong>, raw material cost is <strong>$10</strong> and labor/overhead costs are <strong>$14</strong>. So producing a soldier toy yields <strong>$3</strong> of net profit. With the same process a train’s net profit is <strong>$2</strong>.</p></li>
+<li><p>Our aim is to maximize our total net profit. Let’s denote <span class="math inline">\(x_{1}\)</span> as the number of soldiers produced and <span class="math inline">\(x_{2}\)</span> as the number of trains produced. Values <span class="math inline">\(x_{1}\)</span> and <span class="math inline">\(x_{2}\)</span> will be determined by the solver. Therefore they are <strong>decision variables</strong>.</p></li>
+<li><p>So, our total net profit can be defined as <span class="math inline">\(z = 3x_{1} + 2x_{2}\)</span>. This is also our <strong>objective function</strong>.</p></li>
+<li><p>For finishing tasks, a soldier requires <strong>2 hours</strong> and a train requires <strong>1 hour</strong> of labor. Finishing labor capacity is <strong>100 hours</strong>. So, its mathematical expression is <span class="math inline">\(2x_{1} + x_{2} \le 100\)</span>.</p></li>
+<li><p>For carpentry tasks, a soldier requires <strong>1 hour</strong> and a train requires <strong>1 hour</strong> of labor. Carpentry labor capacity is <strong>80 hours</strong>. So, its mathematical expression is <span class="math inline">\(x_{1} + x_{2} \le 80\)</span>.</p></li>
+<li><p>Demand for soldiers is limited with 40. So, its mathematical expression is <span class="math inline">\(x_{1} \le 40\)</span>.</p></li>
+<li><p>Also, it is not possible to sell negative amounts of soldiers or toys (no returns). Therefore both <span class="math inline">\(x_{1}\)</span> and <span class="math inline">\(x_{2}\)</span> should be greater than zero (non-negativity constraints).</p></li>
+</ol>
+<p>Let’s gather all the steps in a single model in the next section.</p>
+</section>
+<section id="mathematical-model" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="mathematical-model"><span class="header-section-number">3.3</span> Mathematical Model</h2>
+<section id="decision-variables" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="decision-variables"><span class="header-section-number">3.3.1</span> Decision Variables</h3>
+<ul>
+<li><span class="math inline">\(x_1\)</span>: Number of soldiers to be manufactured.<br>
+</li>
+<li><span class="math inline">\(x_2\)</span>: Number of trains to be manufactured.</li>
+</ul>
+</section>
+<section id="model" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="model"><span class="header-section-number">3.3.2</span> Model</h3>
+<p><span class="math display">\[\begin{gather}
+\max z = 3x_{1} + 2x_{2} \label{eq:obj.fun} \\
+s.t. \nonumber \\
+2x_{1} + x_{2} \le 100 \label{eq:finishing.constraint} \\
+x_{1} + x_{2} \le 80 \label{eq:carpentry.constraint}\\
+x_{1} \le 40 \label{eq:demand.constraint}\\
+x_{1},x_{2} \ge 0 \label{eq:non-negativity}\\
+\end{gather}\]</span></p>
+</section>
+<section id="constraints" class="level3" data-number="3.3.3">
+<h3 data-number="3.3.3" class="anchored" data-anchor-id="constraints"><span class="header-section-number">3.3.3</span> Constraints</h3>
+<ul>
+<li>(<span class="math inline">\(\ref{eq:obj.fun}\)</span>) is the objective function to maximize total profits. Each soldier yields <strong>$3</strong> profit and each train <strong>$2</strong>.</li>
+<li>(<span class="math inline">\(\ref{eq:finishing.constraint}\)</span>) is the finishing task capacity constraint. Each soldier requires <strong>2 hours</strong> of labor and each train requires <strong>1 hour</strong>. Total capacity for finishing task is <strong>100 hours</strong>.</li>
+<li>(<span class="math inline">\(\ref{eq:carpentry.constraint}\)</span>) is the carpentry task capacity constraint. Each soldier requires <strong>1 hour</strong> of labor and each train requires <strong>1 hour</strong>. Total capacity for finishing task is <strong>80 hours</strong>.</li>
+<li>(<span class="math inline">\(\ref{eq:demand.constraint}\)</span>) is the maximum demand constraint for soldiers. Maximum available demand for soldiers is <strong>40</strong>.</li>
+<li>(<span class="math inline">\(\ref{eq:non-negativity}\)</span>) Non-negativity constraint. It is not possible to sell negative amount of each toys (i.e.&nbsp;no backorders, no returns etc. in this case).</li>
+</ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -288,11 +334,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./linmodel.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Mathematical Model</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./linprog.html" class="pagination-link">
-        <span class="nav-page-text">Linear Programming</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

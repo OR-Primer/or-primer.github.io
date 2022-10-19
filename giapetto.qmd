@@ -1,0 +1,62 @@
+# Giapetto Example
+
+Giapetto is the introductory example of Linear Programming. This example is directly taken from [Winston's Operations Research (4th Edition)](https://www.amazon.com/Operations-Research-Applications-Algorithms-InfoTrac/dp/0534380581).
+
+
+## Problem
+
+"Giapetto's Woodcarving, Inc., manufactures two types of wooden toys: **soldiers** and **trains**.
+
+A soldier sells for **\$27** and uses **\$10** worth of raw materials. Each soldier that is manufactured increases Giapetto's variable labor and overhead costs by **\$14**. A train sells for **\$21** and uses **\$9** worth of raw materials. Each train built increases Giapetto's variable labor and overhead costs by **\$10**.
+
+The manufacture of wooden soldiers and trains requires two types of skilled labor: **carpentry** and **finishing**. A soldier requires **2 hours** of finishing labor and **1 hour** of carpentry labor. A train requires **1 hour** of finishing labor and **1 hour** of carpentry labor.
+
+Each week, Giapetto can acquire all of the needed raw material, but he is only allotted **100 finishing hours** and **80 carpentry hours**. There is an unlimited demand for trains. However, **at most, 40 soldiers are sold** each week.
+
+Giapetto wants to **maximize his weekly profit** (Revenues - Costs). Formulate a mathematical model for Giapetto's situation that can be used to maximize Giapetto's weekly profit."
+
+Let's convert problem statement into a number of model building steps in the next section.
+
+## Model Building Steps
+
+1. Let's calculate the net profit of a soldier and a train, respectively. Sale price of a soldier is **\$27**, raw material cost is **\$10** and labor/overhead costs are **\$14**. So producing a soldier toy yields **\$3** of net profit. With the same process a train's net profit is **\$2**. 
+
+2. Our aim is to maximize our total net profit. Let's denote $x_{1}$ as the number of soldiers produced and $x_{2}$ as the number of trains produced. Values $x_{1}$ and $x_{2}$ will be determined by the solver. Therefore they are **decision variables**. 
+
+3. So, our total net profit can be defined as $z = 3x_{1} + 2x_{2}$. This is also our **objective function**. 
+
+4. For finishing tasks, a soldier requires **2 hours** and a train requires **1 hour** of labor. Finishing labor capacity is **100 hours**. So, its mathematical expression is $2x_{1} + x_{2} \le 100$.
+
+5. For carpentry tasks, a soldier requires **1 hour** and a train requires **1 hour** of labor. Carpentry labor capacity is **80 hours**. So, its mathematical expression is $x_{1} + x_{2} \le 80$.
+
+6. Demand for soldiers is limited with 40. So, its mathematical expression is $x_{1} \le 40$.
+
+7. Also, it is not possible to sell negative amounts of soldiers or toys (no returns). Therefore both $x_{1}$ and $x_{2}$ should be greater than zero (non-negativity constraints).
+
+Let's gather all the steps in a single model in the next section.
+
+## Mathematical Model
+
+### Decision Variables
+
++ $x_1$: Number of soldiers to be manufactured.  
++ $x_2$: Number of trains to be manufactured.
+
+### Model
+
+\begin{gather}
+\max z = 3x_{1} + 2x_{2} \label{eq:obj.fun} \\
+s.t. \nonumber \\
+2x_{1} + x_{2} \le 100 \label{eq:finishing.constraint} \\
+x_{1} + x_{2} \le 80 \label{eq:carpentry.constraint}\\
+x_{1} \le 40 \label{eq:demand.constraint}\\
+x_{1},x_{2} \ge 0 \label{eq:non-negativity}\\
+\end{gather}
+
+### Constraints
+
++ (\ref{eq:obj.fun}) is the objective function to maximize total profits. Each soldier yields **\$3** profit and each train **\$2**.
++ (\ref{eq:finishing.constraint}) is the finishing task capacity constraint. Each soldier requires **2 hours** of labor and each train requires **1 hour**. Total capacity for finishing task is **100 hours**.
++ (\ref{eq:carpentry.constraint}) is the carpentry task capacity constraint. Each soldier requires **1 hour** of labor and each train requires **1 hour**. Total capacity for finishing task is **80 hours**.
++ (\ref{eq:demand.constraint}) is the maximum demand constraint for soldiers. Maximum available demand for soldiers is **40**.
++ (\ref{eq:non-negativity}) Non-negativity constraint. It is not possible to sell negative amount of each toys (i.e. no backorders, no returns etc. in this case).

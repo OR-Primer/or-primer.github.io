@@ -1,0 +1,8 @@
+# Linear Programming
+
+Linear programming (LP) is the fundamental modeling method of Operations Research. But briefly an LP should adhere to the following rules.
+
+- **Neither** constraints **nor** the objective function may contain non-linear terms.
+- Decision variables are all **continuous**. They **may not** be *binary* or *integer*.
+- Decision variables can be either non-negative ($x \ge 0$) or unrestricted (**urs**).
+

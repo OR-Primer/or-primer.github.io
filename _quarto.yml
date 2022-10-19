@@ -1,20 +1,37 @@
 project:
-  type: website
+  type: book
   output-dir: docs
+  preview:
+    port: 6616
 
-website:
-  title: "OR Primer"
-  navbar:
-    left:
-      - href: index.qmd
-        text: Home
-      - about.qmd
-
+execute: 
+  message: false
+  warning: false
+  
+book:
+  title: "Operations Research Primer"
+  author: "Berk Orbay"
+  downloads: [pdf, epub]
+  chapters:
+    - index.qmd
+    - part: linprog.qmd
+      chapters:
+        - linmodel.qmd
+        - giapetto.qmd
 format:
   html:
-    theme: simplex
-    css: styles.css
-    toc: true
-
+    theme: cosmo
+    html-math-method: mathjax
+    include-in-header:
+      - text: |
+          <script>
+          window.MathJax = {
+            tex: {
+              tags: 'ams'
+            }
+          };
+          </script>
+  pdf: 
+    documentclass: scrreprt
 
 

@@ -4,13 +4,62 @@
     "href": "index.html",
     "title": "Operations Research Primer",
     "section": "",
-    "text": "This webpage is a portal to introduction to OR resources both internal and external. Stay tuned!"
+    "text": "OR Primer is a collection of resources to teach fundamentals of computational optimization regarding Linear Programming and Mixed Integer (Linear) Programming.\nThis collection targets those who want to get a jumpstart without any technical and theoretical details, except the absolutely required fundamental terms. Therefore, there will be lots of examples.\nPrimary focus of OR Primer is to give the reader the ability to discern if a “business” problem can be converted to an OR (LP or MILP) problem. In essence “yes” or “no” depends on the answers of the following questions: “Is there a decision to be made? (i.e. Decision Variables)”, “Are there limitations and requirements? (i.e. Constraints)”, “What is the ultimate aim? (i.e. Objective Function)” and “Can we describe the problem in linear terms? (i.e. Linearity)”.\nAt the second stage, we will focus on transferring the “business” problem from verbal to mathematical form. Reader is expected to get a sense of how to write a mathematical model in a standard way.\nFinally, we will learn how to describe the model in code. We will learn about Algebraic Modelling Languages (AML) and solvers. Our focus will be on scripting languages such as R, Python and Julia.\nOptionally, we will discuss theory. Topics such as simplex, duality, interior points etc. will be briefly explained but it is up to the reader to really dive in the theory or if she is just happy with the coding.\nThere will be lots of external resources. Feel free to add them on Discussions."
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About OR Primer",
+    "objectID": "linprog.html",
+    "href": "linprog.html",
+    "title": "Linear Programming",
     "section": "",
-    "text": "This collection targets those who want to get a jumpstart without any technical and theoretical details, except the absolutely required fundamental terms. Therefore, there will be lots of examples.\nPrimary focus of OR Primer is to give the reader the ability to discern if a “business” problem can be converted to an OR (LP or MILP) problem. In essence “yes” or “no” depends on the answers of the following questions: “Is there a decision to be made? (i.e. Decision Variables)”, “Are there limitations and requirements? (i.e. Constraints)”, “What is the ultimate aim? (i.e. Objective Function)” and “Can we describe the problem in linear terms? (i.e. Linearity)”.\nAt the second stage, we will focus on transferring the “business” problem from verbal to mathematical form. Reader is expected to get a sense of how to write a mathematical model in a standard way.\nFinally, we will learn how to describe the model in code. We will learn about Algebraic Modelling Languages (AML) and solvers. Our focus will be on scripting languages such as R, Python and Julia.\nOptionally, we will discuss theory. Topics such as simplex, duality, interior points etc. will be briefly explained but it is up to the reader to really dive in the theory or if she is just happy with the coding.\nThere will be lots of external resources. Feel free to add them on Discussions."
+    "text": "Neither constraints nor the objective function may contain non-linear terms.\nDecision variables are all continuous. They may not be binary or integer.\nDecision variables can be either non-negative (\\(x \\ge 0\\)) or unrestricted (urs)."
+  },
+  {
+    "objectID": "linmodel.html",
+    "href": "linmodel.html",
+    "title": "2  Mathematical Model",
+    "section": "",
+    "text": "A mathematical representation of LP model is provided below.\n\\[\\begin{gather}\n\\min c^\\mathsf{T}x \\\\\nAx = b \\\\\nx \\ge 0  \\\\\n\\end{gather}\\]"
+  },
+  {
+    "objectID": "linmodel.html#parts-of-a-model",
+    "href": "linmodel.html#parts-of-a-model",
+    "title": "2  Mathematical Model",
+    "section": "2.1 Parts of a Model",
+    "text": "2.1 Parts of a Model\nAn LP model requires the following object types to be complete.\n\nDecision Variables (DV): Decision variables are the objects which the algorithm (i.e. solver) decides its value. A combination of a decision variable value set is a solution. In LP it is not possible to define a DV in non-linear (e.g., \\(x^2\\)) terms or in interaction with other DVs (e.g., \\(xy\\)). In the model, elements of \\(x\\) are decision variables. \\(x\\) is an \\(n\\)-sized vector.\nCoefficients and constants: It is possible to add pre-defined constants as coefficients to decision variables or by themselves. In the model, elements of \\(A\\), \\(b\\) and \\(c\\) are constants and coefficients. \\(A\\) is an \\(m\\) x \\(n\\) matrix, \\(b\\) is an \\(m\\)-sized vector and \\(c\\) is an \\(n\\)-sized vector.\nConstraints: Constraints are the rules which the decision variable values should satisfy in order to be a valid (i.e. feasible) solution. In the model, \\(Ax = b\\) system of equations and non-negativity terms (\\(x \\ge 0\\)) are the constraints.\nObjective Function: Objective function defines the direction (either minimization or maximization) and the evaluation formula of the solution quality. In the model, the term \\(\\min c^\\mathsf{T}x\\) is the objective function and the solver will try to minimize \\(c^\\mathsf{T}x\\)."
+  },
+  {
+    "objectID": "linmodel.html#indices",
+    "href": "linmodel.html#indices",
+    "title": "2  Mathematical Model",
+    "section": "2.2 Indices",
+    "text": "2.2 Indices\nThere are also indices which we will use to define elements in decision variables, coefficients, constants and constraints. For instance \\(x_{i}\\) is the \\(i\\) th element of the decision variable vector and \\(A_{i,j}\\) is the (i,j)th element of the coefficient matrix. Let’s rewrite the model.\n\\[\\begin{gather}\n\\min \\sum_{j=1}^{n} c_jx_j \\tag{1} \\\\\n\\sum_{j=1}^{n}A_{i,j}x_j = b_i \\ \\forall_{i \\in 1..m}\\tag{2}  \\\\\nx_j \\ge 0 \\ \\forall_{j \\in 1..n} \\tag{3}  \\\\\n\\end{gather}\\]\nThese parts may also be multi-dimensional. For instance \\(x_{i,j,k,t}\\) is possible."
+  },
+  {
+    "objectID": "giapetto.html",
+    "href": "giapetto.html",
+    "title": "3  Giapetto Example",
+    "section": "",
+    "text": "Giapetto is the introductory example of Linear Programming. This example is directly taken from Winston’s Operations Research (4th Edition)."
+  },
+  {
+    "objectID": "giapetto.html#problem",
+    "href": "giapetto.html#problem",
+    "title": "3  Giapetto Example",
+    "section": "3.1 Problem",
+    "text": "3.1 Problem\n“Giapetto’s Woodcarving, Inc., manufactures two types of wooden toys: soldiers and trains.\nA soldier sells for $27 and uses $10 worth of raw materials. Each soldier that is manufactured increases Giapetto’s variable labor and overhead costs by $14. A train sells for $21 and uses $9 worth of raw materials. Each train built increases Giapetto’s variable labor and overhead costs by $10.\nThe manufacture of wooden soldiers and trains requires two types of skilled labor: carpentry and finishing. A soldier requires 2 hours of finishing labor and 1 hour of carpentry labor. A train requires 1 hour of finishing labor and 1 hour of carpentry labor.\nEach week, Giapetto can acquire all of the needed raw material, but he is only allotted 100 finishing hours and 80 carpentry hours. There is an unlimited demand for trains. However, at most, 40 soldiers are sold each week.\nGiapetto wants to maximize his weekly profit (Revenues - Costs). Formulate a mathematical model for Giapetto’s situation that can be used to maximize Giapetto’s weekly profit.”\nLet’s convert problem statement into a number of model building steps in the next section."
+  },
+  {
+    "objectID": "giapetto.html#model-building-steps",
+    "href": "giapetto.html#model-building-steps",
+    "title": "3  Giapetto Example",
+    "section": "3.2 Model Building Steps",
+    "text": "3.2 Model Building Steps\n\nLet’s calculate the net profit of a soldier and a train, respectively. Sale price of a soldier is $27, raw material cost is $10 and labor/overhead costs are $14. So producing a soldier toy yields $3 of net profit. With the same process a train’s net profit is $2.\nOur aim is to maximize our total net profit. Let’s denote \\(x_{1}\\) as the number of soldiers produced and \\(x_{2}\\) as the number of trains produced. Values \\(x_{1}\\) and \\(x_{2}\\) will be determined by the solver. Therefore they are decision variables.\nSo, our total net profit can be defined as \\(z = 3x_{1} + 2x_{2}\\). This is also our objective function.\nFor finishing tasks, a soldier requires 2 hours and a train requires 1 hour of labor. Finishing labor capacity is 100 hours. So, its mathematical expression is \\(2x_{1} + x_{2} \\le 100\\).\nFor carpentry tasks, a soldier requires 1 hour and a train requires 1 hour of labor. Carpentry labor capacity is 80 hours. So, its mathematical expression is \\(x_{1} + x_{2} \\le 80\\).\nDemand for soldiers is limited with 40. So, its mathematical expression is \\(x_{1} \\le 40\\).\nAlso, it is not possible to sell negative amounts of soldiers or toys (no returns). Therefore both \\(x_{1}\\) and \\(x_{2}\\) should be greater than zero (non-negativity constraints).\n\nLet’s gather all the steps in a single model in the next section."
+  },
+  {
+    "objectID": "giapetto.html#mathematical-model",
+    "href": "giapetto.html#mathematical-model",
+    "title": "3  Giapetto Example",
+    "section": "3.3 Mathematical Model",
+    "text": "3.3 Mathematical Model\n\n3.3.1 Decision Variables\n\n\\(x_1\\): Number of soldiers to be manufactured.\n\n\\(x_2\\): Number of trains to be manufactured.\n\n\n\n3.3.2 Model\n\\[\\begin{gather}\n\\max z = 3x_{1} + 2x_{2} \\label{eq:obj.fun} \\\\\ns.t. \\nonumber \\\\\n2x_{1} + x_{2} \\le 100 \\label{eq:finishing.constraint} \\\\\nx_{1} + x_{2} \\le 80 \\label{eq:carpentry.constraint}\\\\\nx_{1} \\le 40 \\label{eq:demand.constraint}\\\\\nx_{1},x_{2} \\ge 0 \\label{eq:non-negativity}\\\\\n\\end{gather}\\]\n\n\n3.3.3 Constraints\n\n(\\(\\ref{eq:obj.fun}\\)) is the objective function to maximize total profits. Each soldier yields $3 profit and each train $2.\n(\\(\\ref{eq:finishing.constraint}\\)) is the finishing task capacity constraint. Each soldier requires 2 hours of labor and each train requires 1 hour. Total capacity for finishing task is 100 hours.\n(\\(\\ref{eq:carpentry.constraint}\\)) is the carpentry task capacity constraint. Each soldier requires 1 hour of labor and each train requires 1 hour. Total capacity for finishing task is 80 hours.\n(\\(\\ref{eq:demand.constraint}\\)) is the maximum demand constraint for soldiers. Maximum available demand for soldiers is 40.\n(\\(\\ref{eq:non-negativity}\\)) Non-negativity constraint. It is not possible to sell negative amount of each toys (i.e. no backorders, no returns etc. in this case)."
   }
 ]
