@@ -4,21 +4,14 @@
     "href": "index.html",
     "title": "Operations Research Primer",
     "section": "",
-    "text": "OR Primer is a collection of resources to teach fundamentals of computational optimization regarding Linear Programming and Mixed Integer (Linear) Programming.\nThis collection targets those who want to get a jumpstart without any technical and theoretical details, except the absolutely required fundamental terms. Therefore, there will be lots of examples.\nPrimary focus of OR Primer is to give the reader the ability to discern if a “business” problem can be converted to an OR (LP or MILP) problem. In essence “yes” or “no” depends on the answers of the following questions: “Is there a decision to be made? (i.e. Decision Variables)”, “Are there limitations and requirements? (i.e. Constraints)”, “What is the ultimate aim? (i.e. Objective Function)” and “Can we describe the problem in linear terms? (i.e. Linearity)”.\nAt the second stage, we will focus on transferring the “business” problem from verbal to mathematical form. Reader is expected to get a sense of how to write a mathematical model in a standard way.\nFinally, we will learn how to describe the model in code. We will learn about Algebraic Modelling Languages (AML) and solvers. Our focus will be on scripting languages such as R, Python and Julia.\nOptionally, we will discuss theory. Topics such as simplex, duality, interior points etc. will be briefly explained but it is up to the reader to really dive in the theory or if she is just happy with the coding.\nThere will be lots of external resources. Feel free to add them on Discussions."
+    "text": "1 Introduction\nOR Primer is a collection of resources to teach fundamentals of computational optimization regarding Linear Programming and Mixed Integer (Linear) Programming.\nThis collection targets those who want to get a jumpstart without any technical and theoretical details, except the absolutely required fundamental terms. Therefore, there will be lots of examples.\nPrimary focus of OR Primer is to give the reader the ability to discern if a “business” problem can be converted to an OR (LP or MILP) problem. In essence “yes” or “no” depends on the answers of the following questions: “Is there a decision to be made? (i.e. Decision Variables)”, “Are there limitations and requirements? (i.e. Constraints)”, “What is the ultimate aim? (i.e. Objective Function)” and “Can we describe the problem in linear terms? (i.e. Linearity)”.\nAt the second stage, we will focus on transferring the “business” problem from verbal to mathematical form. Reader is expected to get a sense of how to write a mathematical model in a standard way.\nFinally, we will learn how to describe the model in code. We will learn about Algebraic Modelling Languages (AML) and solvers. Our focus will be on scripting languages such as R, Python and Julia.\nOptionally, we will discuss theory. Topics such as simplex, duality, interior points etc. will be briefly explained but it is up to the reader to really dive in the theory or if she is just happy with the coding.\nThere will be lots of external resources. Feel free to add them on Discussions."
   },
   {
     "objectID": "linprog.html",
     "href": "linprog.html",
     "title": "Linear Programming",
     "section": "",
-    "text": "Neither constraints nor the objective function may contain non-linear terms.\nDecision variables are all continuous. They may not be binary or integer.\nDecision variables can be either non-negative (\\(x \\ge 0\\)) or unrestricted (urs)."
-  },
-  {
-    "objectID": "linmodel.html",
-    "href": "linmodel.html",
-    "title": "2  Mathematical Model",
-    "section": "",
-    "text": "A mathematical representation of LP model is provided below.\n\\[\\begin{gather}\n\\min c^\\mathsf{T}x \\\\\nAx = b \\\\\nx \\ge 0  \\\\\n\\end{gather}\\]"
+    "text": "Linear programming (LP) is the fundamental modeling method of Operations Research. But briefly an LP should adhere to the following rules.\n\nNeither constraints nor the objective function may contain non-linear terms.\nDecision variables are all continuous. They may not be binary or integer.\nDecision variables can be either non-negative (\\(x \\ge 0\\)) or unrestricted (urs)."
   },
   {
     "objectID": "linmodel.html#parts-of-a-model",
@@ -33,13 +26,6 @@
     "title": "2  Mathematical Model",
     "section": "2.2 Indices",
     "text": "2.2 Indices\nThere are also indices which we will use to define elements in decision variables, coefficients, constants and constraints. For instance \\(x_{i}\\) is the \\(i\\) th element of the decision variable vector and \\(A_{i,j}\\) is the (i,j)th element of the coefficient matrix. Let’s rewrite the model.\n\\[\\begin{gather}\n\\min \\sum_{j=1}^{n} c_jx_j \\tag{1} \\\\\n\\sum_{j=1}^{n}A_{i,j}x_j = b_i \\ \\forall_{i \\in 1..m}\\tag{2}  \\\\\nx_j \\ge 0 \\ \\forall_{j \\in 1..n} \\tag{3}  \\\\\n\\end{gather}\\]\nThese parts may also be multi-dimensional. For instance \\(x_{i,j,k,t}\\) is possible."
-  },
-  {
-    "objectID": "giapetto.html",
-    "href": "giapetto.html",
-    "title": "3  Giapetto Example",
-    "section": "",
-    "text": "Giapetto is the introductory example of Linear Programming. This example is directly taken from Winston’s Operations Research (4th Edition)."
   },
   {
     "objectID": "giapetto.html#problem",
@@ -61,5 +47,47 @@
     "title": "3  Giapetto Example",
     "section": "3.3 Mathematical Model",
     "text": "3.3 Mathematical Model\n\n3.3.1 Decision Variables\n\n\\(x_1\\): Number of soldiers to be manufactured.\n\n\\(x_2\\): Number of trains to be manufactured.\n\n\n\n3.3.2 Model\n\\[\\begin{gather}\n\\max z = 3x_{1} + 2x_{2} \\label{eq:obj.fun} \\\\\ns.t. \\nonumber \\\\\n2x_{1} + x_{2} \\le 100 \\label{eq:finishing.constraint} \\\\\nx_{1} + x_{2} \\le 80 \\label{eq:carpentry.constraint}\\\\\nx_{1} \\le 40 \\label{eq:demand.constraint}\\\\\nx_{1},x_{2} \\ge 0 \\label{eq:non-negativity}\\\\\n\\end{gather}\\]\n\n\n3.3.3 Constraints\n\n(\\(\\ref{eq:obj.fun}\\)) is the objective function to maximize total profits. Each soldier yields $3 profit and each train $2.\n(\\(\\ref{eq:finishing.constraint}\\)) is the finishing task capacity constraint. Each soldier requires 2 hours of labor and each train requires 1 hour. Total capacity for finishing task is 100 hours.\n(\\(\\ref{eq:carpentry.constraint}\\)) is the carpentry task capacity constraint. Each soldier requires 1 hour of labor and each train requires 1 hour. Total capacity for finishing task is 80 hours.\n(\\(\\ref{eq:demand.constraint}\\)) is the maximum demand constraint for soldiers. Maximum available demand for soldiers is 40.\n(\\(\\ref{eq:non-negativity}\\)) Non-negativity constraint. It is not possible to sell negative amount of each toys (i.e. no backorders, no returns etc. in this case)."
+  },
+  {
+    "objectID": "markowitz.html#problem",
+    "href": "markowitz.html#problem",
+    "title": "4  Markowitz Portfolio Example",
+    "section": "4.1 Problem",
+    "text": "4.1 Problem\nThere are multiple versions of this problem, but we will model a simple one. Suppose there is an array of investment items with different risk and reward values. We would like form a portfolio to minimize the total risk, given a desired return level. Naturally, risk should be higher with the return."
+  },
+  {
+    "objectID": "markowitz.html#model-building-steps",
+    "href": "markowitz.html#model-building-steps",
+    "title": "4  Markowitz Portfolio Example",
+    "section": "4.2 Model Building Steps",
+    "text": "4.2 Model Building Steps\n\nDefine the decision variable \\(x_{i}\\) as the fraction of our portfolio assigned to investment item (i.e. stock) \\(i\\).\nDefine risk parameter as \\(\\sigma_{i}\\) and reward parameter as \\(\\mu_{i}\\) for item \\(i\\).\nDefine desired return level parameter as \\(q\\).\nAdd constraint of the total portolio should add up to \\(1\\).\nAdd constraint of minimum return requirement from the portfolio."
+  },
+  {
+    "objectID": "markowitz.html#mathematical-model",
+    "href": "markowitz.html#mathematical-model",
+    "title": "4  Markowitz Portfolio Example",
+    "section": "4.3 Mathematical Model",
+    "text": "4.3 Mathematical Model\n\n4.3.1 Decision Variables\n\n\\(x_{i}\\): Fraction of the budget allocated to investment item \\(i\\).\n\n\n\n4.3.2 Parameters\n\n\\(\\sigma_{j}\\): Risk parameter of item \\(i\\).\n\\(\\mu_{i}\\): Reward (return) parameter of item \\(i\\).\n\\(q\\): Required minimum reward level from the portfolioe.\n\n\n\n4.3.3 Model\n\\[\\begin{gather}\n\\min z = \\sum_{i} \\sigma_{i} x_{i} \\label{eq:obj.fun} \\\\\ns.t. \\nonumber \\\\\n\\sum_i \\mu_{i}x_{i} \\ge q \\label{eq:reward.constraint} \\\\\n\\sum_i x_{i} = 1 \\label{eq:portfolio.constraint} \\\\\nx_{i} \\ge 0, \\ \\forall_i \\label{eq:non-negativity}\\\\\n\\end{gather}\\]\n\n\n4.3.4 Constraints\n\n(\\(\\ref{eq:obj.fun}\\)) is the objective function to minimize total spending.\n(\\(\\ref{eq:reward.constraint}\\)) is the minimum reward requirement constraint.\n(\\(\\ref{eq:portfolio.constraint}\\)) is the constraint to make sure that sum of all portfolio fractions is 1.\n(\\(\\ref{eq:non-negativity}\\)) Non-negativity constraint. It is not possible to sell negative amount of each toys (i.e. no backorders, no returns etc. in this case)."
+  },
+  {
+    "objectID": "diet.html#problem",
+    "href": "diet.html#problem",
+    "title": "5  Diet Example",
+    "section": "5.1 Problem",
+    "text": "5.1 Problem\nProblem statement is as follows.\n“For a moderately active man weighing 154 pounds, how much of each of 77 foods should be eaten on a daily basis so that the man’s intake of nine nutrients will be at least equal to the recommended dietary allowances (RDAs) suggested by the National Research Council in 1943, with the cost of the diet being minimal?”\nStigler identifies 9 nutrients (calories, protein, calcium, iron etc.) and their recommended intakes. Also there is a list of nutrients with their nutritional data per dollar. Full data is given in the following (link).\nStigler wants the minimal cost menu which will satisfy nutritional requirements."
+  },
+  {
+    "objectID": "diet.html#model-building-steps",
+    "href": "diet.html#model-building-steps",
+    "title": "5  Diet Example",
+    "section": "5.2 Model Building Steps",
+    "text": "5.2 Model Building Steps\n\nDefine the decision variable \\(x_{i}\\) as the budget in dollars assigned to food \\(i\\).\nDefine nutritional requirement parameter as \\(b_{j}\\) for the nutrient \\(j\\).\nDefine \\(a_{i,j}\\) as the nutritional level from food \\(i\\) of nutrient \\(j\\).\nDefine objective function as them minimization of total cost.\nDefine constraints to satisfy nutritional demand by the food items."
+  },
+  {
+    "objectID": "diet.html#mathematical-model",
+    "href": "diet.html#mathematical-model",
+    "title": "5  Diet Example",
+    "section": "5.3 Mathematical Model",
+    "text": "5.3 Mathematical Model\n\n5.3.1 Decision Variables\n\n\\(x_{i}\\): Total budget allocated to food item \\(i\\).\n\n\n\n5.3.2 Parameters\n\n\\(b_{j}\\): Nutritional requirement level of nutrient \\(j\\).\n\\(a_{i,j}\\): Nutritional content of food item \\(i\\) for nutrient \\(j\\).\n\n\n\n5.3.3 Model\n\\[\\begin{gather}\n\\min z = \\sum_{i} x_{i} \\label{eq:obj.fun} \\\\\ns.t. \\nonumber \\\\\n\\sum_i a_{i,j}x_{i} \\ge b_{j}, \\ \\forall_j \\label{eq:nutrition.constraints} \\\\\nx_{i} \\ge 0, \\ \\forall_i \\label{eq:non-negativity}\\\\\n\\end{gather}\\]\n\n\n5.3.4 Constraints\n\n(\\(\\ref{eq:obj.fun}\\)) is the objective function to minimize total spending.\n(\\(\\ref{eq:nutrition.constraints}\\)) is the set of constraints to satisfy all nutritional requirements.\n(\\(\\ref{eq:non-negativity}\\)) Non-negativity constraint. It is not possible to sell negative amount of each toys (i.e. no backorders, no returns etc. in this case)."
   }
 ]

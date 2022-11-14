@@ -1,0 +1,48 @@
+# Markowitz Portfolio Example
+
+Harry Markowitz, one of the pioneers of computational finance and founder of [Modern Portfolio Theory](https://en.wikipedia.org/wiki/Modern_portfolio_theory), introduced his financial portfolio model in 1952. He defines portfolio items (e.g. stocks) with their risk (usually standard deviation or variance of returns) and reward (mean return). (Trivia: Markowitz is a Nobel Laureate in Economics, 1990)
+
+## Problem
+
+There are multiple versions of this problem, but we will model a simple one. Suppose there is an array of investment items with different risk and reward values. We would like form a portfolio to minimize the total risk, given a desired return level. Naturally, risk should be higher with the return.
+
+## Model Building Steps
+
+1. Define the decision variable $x_{i}$ as the fraction of our portfolio assigned to investment item (i.e. stock) $i$.
+
+2. Define risk parameter as $\sigma_{i}$ and reward parameter as $\mu_{i}$ for item $i$.
+
+3. Define desired return level parameter as $q$.
+
+4. Add constraint of the total portolio should add up to $1$. 
+
+5. Add constraint of minimum return requirement from the portfolio.
+
+## Mathematical Model
+
+### Decision Variables
+
++ $x_{i}$: Fraction of the budget allocated to investment item $i$.  
+
+### Parameters
+
++ $\sigma_{j}$: Risk parameter of item $i$.
++ $\mu_{i}$: Reward (return) parameter of item $i$.
++ $q$: Required minimum reward level from the portfolioe.
+
+### Model
+
+\begin{gather}
+\min z = \sum_{i} \sigma_{i} x_{i} \label{eq:obj.fun} \\
+s.t. \nonumber \\
+\sum_i \mu_{i}x_{i} \ge q \label{eq:reward.constraint} \\
+\sum_i x_{i} = 1 \label{eq:portfolio.constraint} \\
+x_{i} \ge 0, \ \forall_i \label{eq:non-negativity}\\
+\end{gather}
+
+### Constraints
+
++ (\ref{eq:obj.fun}) is the objective function to minimize total spending. 
++ (\ref{eq:reward.constraint}) is the minimum reward requirement constraint.
++ (\ref{eq:portfolio.constraint}) is the constraint to make sure that sum of all portfolio fractions is 1.
++ (\ref{eq:non-negativity}) Non-negativity constraint. It is not possible to sell negative amount of each toys (i.e. no backorders, no returns etc. in this case).

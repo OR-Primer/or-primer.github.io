@@ -1,0 +1,51 @@
+# Diet Example
+
+Diet problem (or [Stigler Diet](https://en.wikipedia.org/wiki/Stigler_diet)) actually predates Linear Programming. It was coined by George Stigler in 1939. (Trivia: Stigler is a 1982 Economics Nobel Laureate) 
+
+## Problem
+
+Problem statement is as follows.
+
+"For a moderately active man weighing 154 pounds, how much of each of 77 foods should be eaten on a daily basis so that the man’s intake of nine nutrients will be at least equal to the recommended dietary allowances (RDAs) suggested by the National Research Council in 1943, with the cost of the diet being minimal?"
+
+Stigler identifies 9 nutrients (calories, protein, calcium, iron etc.) and their recommended intakes. Also there is a list of nutrients with their nutritional data per dollar. Full data is given in the following ([link](https://developers.google.com/optimization/lp/stigler_diet)).
+
+Stigler wants the minimal cost menu which will satisfy nutritional requirements.
+
+## Model Building Steps
+
+1. Define the decision variable $x_{i}$ as the budget in dollars assigned to food $i$.
+
+2. Define nutritional requirement parameter as $b_{j}$ for the nutrient $j$.
+
+3. Define $a_{i,j}$ as the nutritional level from food $i$ of nutrient $j$.
+
+4. Define objective function as them minimization of total cost.
+
+5. Define constraints to satisfy nutritional demand by the food items.
+
+## Mathematical Model
+
+### Decision Variables
+
++ $x_{i}$: Total budget allocated to food item $i$.  
+
+### Parameters
+
++ $b_{j}$: Nutritional requirement level of nutrient $j$.
++ $a_{i,j}$: Nutritional content of food item $i$ for nutrient $j$.
+
+### Model
+
+\begin{gather}
+\min z = \sum_{i} x_{i} \label{eq:obj.fun} \\
+s.t. \nonumber \\
+\sum_i a_{i,j}x_{i} \ge b_{j}, \ \forall_j \label{eq:nutrition.constraints} \\
+x_{i} \ge 0, \ \forall_i \label{eq:non-negativity}\\
+\end{gather}
+
+### Constraints
+
++ (\ref{eq:obj.fun}) is the objective function to minimize total spending. 
++ (\ref{eq:nutrition.constraints}) is the set of constraints to satisfy all nutritional requirements.
++ (\ref{eq:non-negativity}) Non-negativity constraint. It is not possible to sell negative amount of each toys (i.e. no backorders, no returns etc. in this case).

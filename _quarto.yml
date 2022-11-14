@@ -18,6 +18,8 @@ book:
       chapters:
         - linmodel.qmd
         - giapetto.qmd
+        - markowitz.qmd
+        - diet.qmd
 format:
   html:
     theme: cosmo
