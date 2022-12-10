@@ -30,6 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./tsp.html" rel="next">
 <link href="./milpprog.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -160,6 +161,11 @@ window.MathJax = {
   <a href="./knapsack.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Knapsack Example</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tsp.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Traveling Salesman Example</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -176,8 +182,9 @@ window.MathJax = {
   <li><a href="#mathematical-model" id="toc-mathematical-model" class="nav-link" data-scroll-target="#mathematical-model"><span class="toc-section-number">5.3</span>  Mathematical Model</a>
   <ul class="collapse">
   <li><a href="#decision-variables" id="toc-decision-variables" class="nav-link" data-scroll-target="#decision-variables"><span class="toc-section-number">5.3.1</span>  Decision Variables</a></li>
-  <li><a href="#model" id="toc-model" class="nav-link" data-scroll-target="#model"><span class="toc-section-number">5.3.2</span>  Model</a></li>
-  <li><a href="#constraints" id="toc-constraints" class="nav-link" data-scroll-target="#constraints"><span class="toc-section-number">5.3.3</span>  Constraints</a></li>
+  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters"><span class="toc-section-number">5.3.2</span>  Parameters</a></li>
+  <li><a href="#model" id="toc-model" class="nav-link" data-scroll-target="#model"><span class="toc-section-number">5.3.3</span>  Model</a></li>
+  <li><a href="#constraints" id="toc-constraints" class="nav-link" data-scroll-target="#constraints"><span class="toc-section-number">5.3.4</span>  Constraints</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -208,9 +215,17 @@ window.MathJax = {
 <p>In practice logistics companies deal with this problem every day in order to fill their trucks with packages of various sizes and weights.</p>
 <section id="problem-description" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="problem-description"><span class="header-section-number">5.1</span> Problem Description</h2>
+<p>Suppose there is a “space” (e.g.&nbsp;a knapsack) with a single dimensional capacity of <span class="math inline">\(W\)</span>. Also we have a set of items with value and weight properties. We would like to determine which items to include in the knapsack to get the total maximum value from the items in the knapsack.</p>
 </section>
 <section id="model-building-steps" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="model-building-steps"><span class="header-section-number">5.2</span> Model Building Steps</h2>
+<ol type="1">
+<li><p>Define the decision variables (<span class="math inline">\(x_i\)</span>) as whether item <span class="math inline">\(i\)</span> is in the knapsack or not. These decision variables are defined as binary.</p></li>
+<li><p>Define value (<span class="math inline">\(v_i\)</span>) and weight (<span class="math inline">\(w_i\)</span>) parameters for each item <span class="math inline">\(i\)</span>.</p></li>
+<li><p>Define a capacity parameter (<span class="math inline">\(W\)</span>) for the knapsack.</p></li>
+<li><p>Define capacity constraint as the total weight of items should not exceed capacity parameter.</p></li>
+<li><p>Define objective function as the maximization of total value of items included in the knapsack.</p></li>
+</ol>
 </section>
 <section id="mathematical-model" class="level2" data-number="5.3">
 <h2 data-number="5.3" class="anchored" data-anchor-id="mathematical-model"><span class="header-section-number">5.3</span> Mathematical Model</h2>
@@ -220,8 +235,18 @@ window.MathJax = {
 <li><span class="math inline">\(x_i\)</span>: Whether item <span class="math inline">\(i\)</span> is included in the knapsack or not (binary variable).</li>
 </ul>
 </section>
-<section id="model" class="level3" data-number="5.3.2">
-<h3 data-number="5.3.2" class="anchored" data-anchor-id="model"><span class="header-section-number">5.3.2</span> Model</h3>
+<section id="parameters" class="level3" data-number="5.3.2">
+<h3 data-number="5.3.2" class="anchored" data-anchor-id="parameters"><span class="header-section-number">5.3.2</span> Parameters</h3>
+<ul>
+<li><span class="math inline">\(W\)</span>: Capacity of the knapsack.<br>
+</li>
+<li><span class="math inline">\(v_i\)</span>: Value of item <span class="math inline">\(i\)</span>.<br>
+</li>
+<li><span class="math inline">\(w_i\)</span>: Weight of item <span class="math inline">\(i\)</span>.</li>
+</ul>
+</section>
+<section id="model" class="level3" data-number="5.3.3">
+<h3 data-number="5.3.3" class="anchored" data-anchor-id="model"><span class="header-section-number">5.3.3</span> Model</h3>
 <p><span class="math display">\[\begin{gather}
 \max z = \sum_i v_ix_i  \label{eq:obj.fun} \\
 s.t. \nonumber \\
@@ -229,8 +254,8 @@ s.t. \nonumber \\
 x_{i} \in \{0,1\} \label{eq:binary}\\
 \end{gather}\]</span></p>
 </section>
-<section id="constraints" class="level3" data-number="5.3.3">
-<h3 data-number="5.3.3" class="anchored" data-anchor-id="constraints"><span class="header-section-number">5.3.3</span> Constraints</h3>
+<section id="constraints" class="level3" data-number="5.3.4">
+<h3 data-number="5.3.4" class="anchored" data-anchor-id="constraints"><span class="header-section-number">5.3.4</span> Constraints</h3>
 <ul>
 <li>(<span class="math inline">\(\ref{eq:obj.fun}\)</span>) is the objective function to maximize total value for items included in the knapsack.</li>
 <li>(<span class="math inline">\(\ref{eq:knapsack.constraint}\)</span>) is the capacity constraint of the knapsack. Each item <span class="math inline">\(i\)</span> has a weight parameter <span class="math inline">\(w_i\)</span> so items included in the knapsack should not weigh more than <span class="math inline">\(W\)</span>.</li>
@@ -382,6 +407,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./tsp.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Traveling Salesman Example</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

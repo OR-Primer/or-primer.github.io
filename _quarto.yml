@@ -22,6 +22,7 @@ book:
     - part: milpprog.qmd
       chapters:
         - knapsack.qmd
+        - tsp.qmd
 format:
   html:
     theme: cosmo

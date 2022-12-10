@@ -1,0 +1,60 @@
+# Traveling Salesman Example
+
+Traveling Salesman (Salesperson) Problem (TSP) is one of the most popular problems in [combinatorial optimization](https://en.wikipedia.org/wiki/Combinatorial_optimization). Briefly, suppose you need to visit N cities in a road trip. You will leave home, visit each city once and come back to your home. What is the shortest route?
+
+TSP is an [NP-complete](https://en.wikipedia.org/wiki/NP-completeness) problem making it exponentially hard as the problem size increases. There is a trove of literature around TSP and relevant problems such as Vehicle Routing Problem (VRP). Special algorithms and software are designed to solve TSP in addition to solvers. Arguably the most popular solver is [Concorde](https://www.math.uwaterloo.ca/tsp/concorde.html).
+
+## Problem Description
+
+Suppose there are N cities from 1..N. A traveling salesperson starts at city 1, visits each city once and returns "home" (city 1). You are given the (driving) distance between each city. You are expected to find the shortest route possible. 
+
+For instance, for a 5 city problem 1-3-2-5-4-1 is a valid route.
+
+## Model Building Steps
+
+1. Define index of cities as $i$ with $N$ cities.
+
+2. Define decision variables $x_{i,j}$ as a binary variable which represents whether city $j$ is visited after city $i$. Both $i$ and $j$ are part of set of cities. 
+
+3. Define (symmetric) distance between each city as $d_{i,j}$.
+
+4. Define the objective function as the minimization of total distance traveled.
+
+5. You cannot visit the same city after itself ($i \neq j$).
+
+6. Add constraints to eliminate subroutes. Each city should be in the source and destination once.
+
+## Mathematical Model
+
+### Decision Variables
+
++ $x_{i,j}$: Whether the salesperson used the route from city $i$ to $j$ (binary variable).
++ $u_i$: Subtour elimination variable. It represents the order of the city in the route. ($i \in 2..N$)
+
+### Parameters
+
++ $d_{i,j}$: Distance from city $i$ to $j$ (binary variable).
+
+### Model
+
+\begin{gather}
+\max z = \sum_i \sum_j d_{i,j}x_{i,j}  \label{eq:obj.fun} \\
+s.t. \nonumber \\
+x_{j,j} = 0, \ \forall_i  \label{eq:dontvisitself.constraint} \\
+\sum_i x_{i,j} = 1, \ \forall_j  \label{eq:destinationonce.constraint} \\
+\sum_j x_{i,j} = 1, \ \forall_i  \label{eq:sourceonce.constraint} \\
+u_i - u_j + (N-1)x_{i,j} \leq N-2, \ 2 \leq i \neq j \leq N \label{eq:st1.constraint} \\
+1 \leq u_i, \ \ 2 \leq i \leq N \label{eq:st2.constraint} \\
+u_i \leq N-1, \ \ 2 \leq i \leq N   \label{eq:st3.constraint} \\
+x_{i,j} \in \{0,1\} \label{eq:binary}\\
+u_{i} \in Z \label{eq:integer}\\
+\end{gather}
+
+### Constraints
+
++ (\ref{eq:obj.fun}) is the objective function to maximize total value for items included in the knapsack. 
++ (\ref{eq:dontvisitself.constraint}) is the constraint to prevent visiting the same city.
++ Constraints (\ref{eq:destinationonce.constraint}) and (\ref{eq:sourceonce.constraint}) ensure each city is used once as a source ("from") and once as a destination ("to").
++ Constraints (\ref{eq:st1.constraint}), (\ref{eq:st2.constraint}) and (\ref{eq:st3.constraint}) ensure we get a full tour as a feasible solution. Since this is an introductory document we will not go into detail but you can read the [reference](https://en.wikipedia.org/wiki/Travelling_salesman_problem#Miller%E2%80%93Tucker%E2%80%93Zemlin_formulation[21]).
++ (\ref{eq:binary}) Binary constraint for decision variables.
++ (\ref{eq:integer}) Integer constraint for decision variables.

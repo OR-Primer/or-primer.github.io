@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Operations Research Primer - 2&nbsp; Giapetto Example</title>
+<title>Operations Research Primer - 6&nbsp; Traveling Salesman Example</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./markowitz.html" rel="next">
-<link href="./linprog.html" rel="prev">
+<link href="./knapsack.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -78,7 +77,7 @@ window.MathJax = {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Giapetto Example</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Traveling Salesman Example</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -133,7 +132,7 @@ window.MathJax = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./giapetto.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Giapetto Example</span></a>
+  <a href="./giapetto.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Giapetto Example</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -163,7 +162,7 @@ window.MathJax = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tsp.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Traveling Salesman Example</span></a>
+  <a href="./tsp.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Traveling Salesman Example</span></a>
   </div>
 </li>
       </ul>
@@ -177,13 +176,14 @@ window.MathJax = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#problem-description" id="toc-problem-description" class="nav-link active" data-scroll-target="#problem-description"><span class="toc-section-number">2.1</span>  Problem Description</a></li>
-  <li><a href="#model-building-steps" id="toc-model-building-steps" class="nav-link" data-scroll-target="#model-building-steps"><span class="toc-section-number">2.2</span>  Model Building Steps</a></li>
-  <li><a href="#mathematical-model" id="toc-mathematical-model" class="nav-link" data-scroll-target="#mathematical-model"><span class="toc-section-number">2.3</span>  Mathematical Model</a>
+  <li><a href="#problem-description" id="toc-problem-description" class="nav-link active" data-scroll-target="#problem-description"><span class="toc-section-number">6.1</span>  Problem Description</a></li>
+  <li><a href="#model-building-steps" id="toc-model-building-steps" class="nav-link" data-scroll-target="#model-building-steps"><span class="toc-section-number">6.2</span>  Model Building Steps</a></li>
+  <li><a href="#mathematical-model" id="toc-mathematical-model" class="nav-link" data-scroll-target="#mathematical-model"><span class="toc-section-number">6.3</span>  Mathematical Model</a>
   <ul class="collapse">
-  <li><a href="#decision-variables" id="toc-decision-variables" class="nav-link" data-scroll-target="#decision-variables"><span class="toc-section-number">2.3.1</span>  Decision Variables</a></li>
-  <li><a href="#model" id="toc-model" class="nav-link" data-scroll-target="#model"><span class="toc-section-number">2.3.2</span>  Model</a></li>
-  <li><a href="#constraints" id="toc-constraints" class="nav-link" data-scroll-target="#constraints"><span class="toc-section-number">2.3.3</span>  Constraints</a></li>
+  <li><a href="#decision-variables" id="toc-decision-variables" class="nav-link" data-scroll-target="#decision-variables"><span class="toc-section-number">6.3.1</span>  Decision Variables</a></li>
+  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters"><span class="toc-section-number">6.3.2</span>  Parameters</a></li>
+  <li><a href="#model" id="toc-model" class="nav-link" data-scroll-target="#model"><span class="toc-section-number">6.3.3</span>  Model</a></li>
+  <li><a href="#constraints" id="toc-constraints" class="nav-link" data-scroll-target="#constraints"><span class="toc-section-number">6.3.4</span>  Constraints</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -193,7 +193,7 @@ window.MathJax = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Giapetto Example</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Traveling Salesman Example</span></h1>
 </div>
 
 
@@ -208,58 +208,63 @@ window.MathJax = {
 
 </header>
 
-<p>Giapetto is the introductory example of Linear Programming. This example is directly taken from <a href="https://www.amazon.com/Operations-Research-Applications-Algorithms-InfoTrac/dp/0534380581">Winston’s Operations Research (4th Edition)</a>.</p>
-<section id="problem-description" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="problem-description"><span class="header-section-number">2.1</span> Problem Description</h2>
-<p>“Giapetto’s Woodcarving, Inc., manufactures two types of wooden toys: <strong>soldiers</strong> and <strong>trains</strong>.</p>
-<p>A soldier sells for <strong>$27</strong> and uses <strong>$10</strong> worth of raw materials. Each soldier that is manufactured increases Giapetto’s variable labor and overhead costs by <strong>$14</strong>. A train sells for <strong>$21</strong> and uses <strong>$9</strong> worth of raw materials. Each train built increases Giapetto’s variable labor and overhead costs by <strong>$10</strong>.</p>
-<p>The manufacture of wooden soldiers and trains requires two types of skilled labor: <strong>carpentry</strong> and <strong>finishing</strong>. A soldier requires <strong>2 hours</strong> of finishing labor and <strong>1 hour</strong> of carpentry labor. A train requires <strong>1 hour</strong> of finishing labor and <strong>1 hour</strong> of carpentry labor.</p>
-<p>Each week, Giapetto can acquire all of the needed raw material, but he is only allotted <strong>100 finishing hours</strong> and <strong>80 carpentry hours</strong>. There is an unlimited demand for trains. However, <strong>at most, 40 soldiers are sold</strong> each week.</p>
-<p>Giapetto wants to <strong>maximize his weekly profit</strong> (Revenues - Costs). Formulate a mathematical model for Giapetto’s situation that can be used to maximize Giapetto’s weekly profit.”</p>
-<p>Let’s convert problem statement into a number of model building steps in the next section.</p>
+<p>Traveling Salesman (Salesperson) Problem (TSP) is one of the most popular problems in <a href="https://en.wikipedia.org/wiki/Combinatorial_optimization">combinatorial optimization</a>. Briefly, suppose you need to visit N cities in a road trip. You will leave home, visit each city once and come back to your home. What is the shortest route?</p>
+<p>TSP is an <a href="https://en.wikipedia.org/wiki/NP-completeness">NP-complete</a> problem making it exponentially hard as the problem size increases. There is a trove of literature around TSP and relevant problems such as Vehicle Routing Problem (VRP). Special algorithms and software are designed to solve TSP in addition to solvers. Arguably the most popular solver is <a href="https://www.math.uwaterloo.ca/tsp/concorde.html">Concorde</a>.</p>
+<section id="problem-description" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="problem-description"><span class="header-section-number">6.1</span> Problem Description</h2>
+<p>Suppose there are N cities from 1..N. A traveling salesperson starts at city 1, visits each city once and returns “home” (city 1). You are given the (driving) distance between each city. You are expected to find the shortest route possible.</p>
+<p>For instance, for a 5 city problem 1-3-2-5-4-1 is a valid route.</p>
 </section>
-<section id="model-building-steps" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="model-building-steps"><span class="header-section-number">2.2</span> Model Building Steps</h2>
+<section id="model-building-steps" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="model-building-steps"><span class="header-section-number">6.2</span> Model Building Steps</h2>
 <ol type="1">
-<li><p>Let’s calculate the net profit of a soldier and a train, respectively. Sale price of a soldier is <strong>$27</strong>, raw material cost is <strong>$10</strong> and labor/overhead costs are <strong>$14</strong>. So producing a soldier toy yields <strong>$3</strong> of net profit. With the same process a train’s net profit is <strong>$2</strong>.</p></li>
-<li><p>Our aim is to maximize our total net profit. Let’s denote <span class="math inline">\(x_{1}\)</span> as the number of soldiers produced and <span class="math inline">\(x_{2}\)</span> as the number of trains produced. Values <span class="math inline">\(x_{1}\)</span> and <span class="math inline">\(x_{2}\)</span> will be determined by the solver. Therefore they are <strong>decision variables</strong>.</p></li>
-<li><p>So, our total net profit can be defined as <span class="math inline">\(z = 3x_{1} + 2x_{2}\)</span>. This is also our <strong>objective function</strong>.</p></li>
-<li><p>For finishing tasks, a soldier requires <strong>2 hours</strong> and a train requires <strong>1 hour</strong> of labor. Finishing labor capacity is <strong>100 hours</strong>. So, its mathematical expression is <span class="math inline">\(2x_{1} + x_{2} \le 100\)</span>.</p></li>
-<li><p>For carpentry tasks, a soldier requires <strong>1 hour</strong> and a train requires <strong>1 hour</strong> of labor. Carpentry labor capacity is <strong>80 hours</strong>. So, its mathematical expression is <span class="math inline">\(x_{1} + x_{2} \le 80\)</span>.</p></li>
-<li><p>Demand for soldiers is limited with 40. So, its mathematical expression is <span class="math inline">\(x_{1} \le 40\)</span>.</p></li>
-<li><p>Also, it is not possible to sell negative amounts of soldiers or toys (no returns). Therefore both <span class="math inline">\(x_{1}\)</span> and <span class="math inline">\(x_{2}\)</span> should be greater than zero (non-negativity constraints).</p></li>
+<li><p>Define index of cities as <span class="math inline">\(i\)</span> with <span class="math inline">\(N\)</span> cities.</p></li>
+<li><p>Define decision variables <span class="math inline">\(x_{i,j}\)</span> as a binary variable which represents whether city <span class="math inline">\(j\)</span> is visited after city <span class="math inline">\(i\)</span>. Both <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are part of set of cities.</p></li>
+<li><p>Define (symmetric) distance between each city as <span class="math inline">\(d_{i,j}\)</span>.</p></li>
+<li><p>Define the objective function as the minimization of total distance traveled.</p></li>
+<li><p>You cannot visit the same city after itself (<span class="math inline">\(i \neq j\)</span>).</p></li>
+<li><p>Add constraints to eliminate subroutes. Each city should be in the source and destination once.</p></li>
 </ol>
-<p>Let’s gather all the steps in a single model in the next section.</p>
 </section>
-<section id="mathematical-model" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="mathematical-model"><span class="header-section-number">2.3</span> Mathematical Model</h2>
-<section id="decision-variables" class="level3" data-number="2.3.1">
-<h3 data-number="2.3.1" class="anchored" data-anchor-id="decision-variables"><span class="header-section-number">2.3.1</span> Decision Variables</h3>
+<section id="mathematical-model" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="mathematical-model"><span class="header-section-number">6.3</span> Mathematical Model</h2>
+<section id="decision-variables" class="level3" data-number="6.3.1">
+<h3 data-number="6.3.1" class="anchored" data-anchor-id="decision-variables"><span class="header-section-number">6.3.1</span> Decision Variables</h3>
 <ul>
-<li><span class="math inline">\(x_1\)</span>: Number of soldiers to be manufactured.<br>
-</li>
-<li><span class="math inline">\(x_2\)</span>: Number of trains to be manufactured.</li>
+<li><span class="math inline">\(x_{i,j}\)</span>: Whether the salesperson used the route from city <span class="math inline">\(i\)</span> to <span class="math inline">\(j\)</span> (binary variable).</li>
+<li><span class="math inline">\(u_i\)</span>: Subtour elimination variable. It represents the order of the city in the route. (<span class="math inline">\(i \in 2..N\)</span>)</li>
 </ul>
 </section>
-<section id="model" class="level3" data-number="2.3.2">
-<h3 data-number="2.3.2" class="anchored" data-anchor-id="model"><span class="header-section-number">2.3.2</span> Model</h3>
+<section id="parameters" class="level3" data-number="6.3.2">
+<h3 data-number="6.3.2" class="anchored" data-anchor-id="parameters"><span class="header-section-number">6.3.2</span> Parameters</h3>
+<ul>
+<li><span class="math inline">\(d_{i,j}\)</span>: Distance from city <span class="math inline">\(i\)</span> to <span class="math inline">\(j\)</span> (binary variable).</li>
+</ul>
+</section>
+<section id="model" class="level3" data-number="6.3.3">
+<h3 data-number="6.3.3" class="anchored" data-anchor-id="model"><span class="header-section-number">6.3.3</span> Model</h3>
 <p><span class="math display">\[\begin{gather}
-\max z = 3x_{1} + 2x_{2} \label{eq:obj.fun} \\
+\max z = \sum_i \sum_j d_{i,j}x_{i,j}  \label{eq:obj.fun} \\
 s.t. \nonumber \\
-2x_{1} + x_{2} \le 100 \label{eq:finishing.constraint} \\
-x_{1} + x_{2} \le 80 \label{eq:carpentry.constraint}\\
-x_{1} \le 40 \label{eq:demand.constraint}\\
-x_{1},x_{2} \ge 0 \label{eq:non-negativity}\\
+x_{j,j} = 0, \ \forall_i  \label{eq:dontvisitself.constraint} \\
+\sum_i x_{i,j} = 1, \ \forall_j  \label{eq:destinationonce.constraint} \\
+\sum_j x_{i,j} = 1, \ \forall_i  \label{eq:sourceonce.constraint} \\
+u_i - u_j + (N-1)x_{i,j} \leq N-2, \ 2 \leq i \neq j \leq N \label{eq:st1.constraint} \\
+1 \leq u_i, \ \ 2 \leq i \leq N \label{eq:st2.constraint} \\
+u_i \leq N-1, \ \ 2 \leq i \leq N   \label{eq:st3.constraint} \\
+x_{i,j} \in \{0,1\} \label{eq:binary}\\
+u_{i} \in Z \label{eq:integer}\\
 \end{gather}\]</span></p>
 </section>
-<section id="constraints" class="level3" data-number="2.3.3">
-<h3 data-number="2.3.3" class="anchored" data-anchor-id="constraints"><span class="header-section-number">2.3.3</span> Constraints</h3>
+<section id="constraints" class="level3" data-number="6.3.4">
+<h3 data-number="6.3.4" class="anchored" data-anchor-id="constraints"><span class="header-section-number">6.3.4</span> Constraints</h3>
 <ul>
-<li>(<span class="math inline">\(\ref{eq:obj.fun}\)</span>) is the objective function to maximize total profits. Each soldier yields <strong>$3</strong> profit and each train <strong>$2</strong>.</li>
-<li>(<span class="math inline">\(\ref{eq:finishing.constraint}\)</span>) is the finishing task capacity constraint. Each soldier requires <strong>2 hours</strong> of labor and each train requires <strong>1 hour</strong>. Total capacity for finishing task is <strong>100 hours</strong>.</li>
-<li>(<span class="math inline">\(\ref{eq:carpentry.constraint}\)</span>) is the carpentry task capacity constraint. Each soldier requires <strong>1 hour</strong> of labor and each train requires <strong>1 hour</strong>. Total capacity for finishing task is <strong>80 hours</strong>.</li>
-<li>(<span class="math inline">\(\ref{eq:demand.constraint}\)</span>) is the maximum demand constraint for soldiers. Maximum available demand for soldiers is <strong>40</strong>.</li>
-<li>(<span class="math inline">\(\ref{eq:non-negativity}\)</span>) Non-negativity constraint. It is not possible to sell negative amount of each toys (i.e.&nbsp;no backorders, no returns etc. in this case).</li>
+<li>(<span class="math inline">\(\ref{eq:obj.fun}\)</span>) is the objective function to maximize total value for items included in the knapsack.</li>
+<li>(<span class="math inline">\(\ref{eq:dontvisitself.constraint}\)</span>) is the constraint to prevent visiting the same city.</li>
+<li>Constraints (<span class="math inline">\(\ref{eq:destinationonce.constraint}\)</span>) and (<span class="math inline">\(\ref{eq:sourceonce.constraint}\)</span>) ensure each city is used once as a source (“from”) and once as a destination (“to”).</li>
+<li>Constraints (<span class="math inline">\(\ref{eq:st1.constraint}\)</span>), (<span class="math inline">\(\ref{eq:st2.constraint}\)</span>) and (<span class="math inline">\(\ref{eq:st3.constraint}\)</span>) ensure we get a full tour as a feasible solution. Since this is an introductory document we will not go into detail but you can read the <a href="https://en.wikipedia.org/wiki/Travelling_salesman_problem#Miller%E2%80%93Tucker%E2%80%93Zemlin_formulation%5B21%5D">reference</a>.</li>
+<li>(<span class="math inline">\(\ref{eq:binary}\)</span>) Binary constraint for decision variables.</li>
+<li>(<span class="math inline">\(\ref{eq:integer}\)</span>) Integer constraint for decision variables.</li>
 </ul>
 
 
@@ -402,14 +407,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./linprog.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Linear Programming</span>
+      <a href="./knapsack.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Knapsack Example</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./markowitz.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Markowitz Portfolio Example</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

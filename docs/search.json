@@ -46,7 +46,7 @@
     "href": "markowitz.html#model-building-steps",
     "title": "3  Markowitz Portfolio Example",
     "section": "3.2 Model Building Steps",
-    "text": "3.2 Model Building Steps\n\nDefine the decision variable \\(x_{i}\\) as the fraction of our portfolio assigned to investment item (i.e. stock) \\(i\\).\nDefine risk parameter as \\(\\sigma_{i}\\) and reward parameter as \\(\\mu_{i}\\) for item \\(i\\).\nDefine desired return level parameter as \\(q\\).\nAdd constraint of the total portolio should add up to \\(1\\).\nAdd constraint of minimum return requirement from the portfolio."
+    "text": "3.2 Model Building Steps\n\nDefine the decision variable \\(x_{i}\\) as the fraction of our portfolio assigned to investment item (i.e. stock) \\(i\\).\nDefine risk parameter as \\(\\sigma_{i}\\) and reward parameter as \\(\\mu_{i}\\) for item \\(i\\).\nDefine desired return level parameter as \\(q\\).\nAdd constraint of the total portolio should add up to \\(1\\).\nAdd constraint of minimum return requirement from the portfolio.\nAdd objective function of minimum risk to the portfolio."
   },
   {
     "objectID": "markowitz.html#mathematical-model",
@@ -88,20 +88,41 @@
     "href": "knapsack.html#problem-description",
     "title": "5  Knapsack Example",
     "section": "5.1 Problem Description",
-    "text": "5.1 Problem Description"
+    "text": "5.1 Problem Description\nSuppose there is a “space” (e.g. a knapsack) with a single dimensional capacity of \\(W\\). Also we have a set of items with value and weight properties. We would like to determine which items to include in the knapsack to get the total maximum value from the items in the knapsack."
   },
   {
     "objectID": "knapsack.html#model-building-steps",
     "href": "knapsack.html#model-building-steps",
     "title": "5  Knapsack Example",
     "section": "5.2 Model Building Steps",
-    "text": "5.2 Model Building Steps"
+    "text": "5.2 Model Building Steps\n\nDefine the decision variables (\\(x_i\\)) as whether item \\(i\\) is in the knapsack or not. These decision variables are defined as binary.\nDefine value (\\(v_i\\)) and weight (\\(w_i\\)) parameters for each item \\(i\\).\nDefine a capacity parameter (\\(W\\)) for the knapsack.\nDefine capacity constraint as the total weight of items should not exceed capacity parameter.\nDefine objective function as the maximization of total value of items included in the knapsack."
   },
   {
     "objectID": "knapsack.html#mathematical-model",
     "href": "knapsack.html#mathematical-model",
     "title": "5  Knapsack Example",
     "section": "5.3 Mathematical Model",
-    "text": "5.3 Mathematical Model\n\n5.3.1 Decision Variables\n\n\\(x_i\\): Whether item \\(i\\) is included in the knapsack or not (binary variable).\n\n\n\n5.3.2 Model\n\\[\\begin{gather}\n\\max z = \\sum_i v_ix_i  \\label{eq:obj.fun} \\\\\ns.t. \\nonumber \\\\\n\\sum_i w_ix_i \\le W \\label{eq:knapsack.constraint} \\\\\nx_{i} \\in \\{0,1\\} \\label{eq:binary}\\\\\n\\end{gather}\\]\n\n\n5.3.3 Constraints\n\n(\\(\\ref{eq:obj.fun}\\)) is the objective function to maximize total value for items included in the knapsack.\n(\\(\\ref{eq:knapsack.constraint}\\)) is the capacity constraint of the knapsack. Each item \\(i\\) has a weight parameter \\(w_i\\) so items included in the knapsack should not weigh more than \\(W\\).\n(\\(\\ref{eq:binary}\\)) Binary constraint for decision variables."
+    "text": "5.3 Mathematical Model\n\n5.3.1 Decision Variables\n\n\\(x_i\\): Whether item \\(i\\) is included in the knapsack or not (binary variable).\n\n\n\n5.3.2 Parameters\n\n\\(W\\): Capacity of the knapsack.\n\n\\(v_i\\): Value of item \\(i\\).\n\n\\(w_i\\): Weight of item \\(i\\).\n\n\n\n5.3.3 Model\n\\[\\begin{gather}\n\\max z = \\sum_i v_ix_i  \\label{eq:obj.fun} \\\\\ns.t. \\nonumber \\\\\n\\sum_i w_ix_i \\le W \\label{eq:knapsack.constraint} \\\\\nx_{i} \\in \\{0,1\\} \\label{eq:binary}\\\\\n\\end{gather}\\]\n\n\n5.3.4 Constraints\n\n(\\(\\ref{eq:obj.fun}\\)) is the objective function to maximize total value for items included in the knapsack.\n(\\(\\ref{eq:knapsack.constraint}\\)) is the capacity constraint of the knapsack. Each item \\(i\\) has a weight parameter \\(w_i\\) so items included in the knapsack should not weigh more than \\(W\\).\n(\\(\\ref{eq:binary}\\)) Binary constraint for decision variables."
+  },
+  {
+    "objectID": "tsp.html#problem-description",
+    "href": "tsp.html#problem-description",
+    "title": "6  Traveling Salesman Example",
+    "section": "6.1 Problem Description",
+    "text": "6.1 Problem Description\nSuppose there are N cities from 1..N. A traveling salesperson starts at city 1, visits each city once and returns “home” (city 1). You are given the (driving) distance between each city. You are expected to find the shortest route possible.\nFor instance, for a 5 city problem 1-3-2-5-4-1 is a valid route."
+  },
+  {
+    "objectID": "tsp.html#model-building-steps",
+    "href": "tsp.html#model-building-steps",
+    "title": "6  Traveling Salesman Example",
+    "section": "6.2 Model Building Steps",
+    "text": "6.2 Model Building Steps\n\nDefine index of cities as \\(i\\) with \\(N\\) cities.\nDefine decision variables \\(x_{i,j}\\) as a binary variable which represents whether city \\(j\\) is visited after city \\(i\\). Both \\(i\\) and \\(j\\) are part of set of cities.\nDefine (symmetric) distance between each city as \\(d_{i,j}\\).\nDefine the objective function as the minimization of total distance traveled.\nYou cannot visit the same city after itself (\\(i \\neq j\\)).\nAdd constraints to eliminate subroutes. Each city should be in the source and destination once."
+  },
+  {
+    "objectID": "tsp.html#mathematical-model",
+    "href": "tsp.html#mathematical-model",
+    "title": "6  Traveling Salesman Example",
+    "section": "6.3 Mathematical Model",
+    "text": "6.3 Mathematical Model\n\n6.3.1 Decision Variables\n\n\\(x_{i,j}\\): Whether the salesperson used the route from city \\(i\\) to \\(j\\) (binary variable).\n\\(u_i\\): Subtour elimination variable. It represents the order of the city in the route. (\\(i \\in 2..N\\))\n\n\n\n6.3.2 Parameters\n\n\\(d_{i,j}\\): Distance from city \\(i\\) to \\(j\\) (binary variable).\n\n\n\n6.3.3 Model\n\\[\\begin{gather}\n\\max z = \\sum_i \\sum_j d_{i,j}x_{i,j}  \\label{eq:obj.fun} \\\\\ns.t. \\nonumber \\\\\nx_{j,j} = 0, \\ \\forall_i  \\label{eq:dontvisitself.constraint} \\\\\n\\sum_i x_{i,j} = 1, \\ \\forall_j  \\label{eq:destinationonce.constraint} \\\\\n\\sum_j x_{i,j} = 1, \\ \\forall_i  \\label{eq:sourceonce.constraint} \\\\\nu_i - u_j + (N-1)x_{i,j} \\leq N-2, \\ 2 \\leq i \\neq j \\leq N \\label{eq:st1.constraint} \\\\\n1 \\leq u_i, \\ \\ 2 \\leq i \\leq N \\label{eq:st2.constraint} \\\\\nu_i \\leq N-1, \\ \\ 2 \\leq i \\leq N   \\label{eq:st3.constraint} \\\\\nx_{i,j} \\in \\{0,1\\} \\label{eq:binary}\\\\\nu_{i} \\in Z \\label{eq:integer}\\\\\n\\end{gather}\\]\n\n\n6.3.4 Constraints\n\n(\\(\\ref{eq:obj.fun}\\)) is the objective function to maximize total value for items included in the knapsack.\n(\\(\\ref{eq:dontvisitself.constraint}\\)) is the constraint to prevent visiting the same city.\nConstraints (\\(\\ref{eq:destinationonce.constraint}\\)) and (\\(\\ref{eq:sourceonce.constraint}\\)) ensure each city is used once as a source (“from”) and once as a destination (“to”).\nConstraints (\\(\\ref{eq:st1.constraint}\\)), (\\(\\ref{eq:st2.constraint}\\)) and (\\(\\ref{eq:st3.constraint}\\)) ensure we get a full tour as a feasible solution. Since this is an introductory document we will not go into detail but you can read the reference.\n(\\(\\ref{eq:binary}\\)) Binary constraint for decision variables.\n(\\(\\ref{eq:integer}\\)) Integer constraint for decision variables."
   }
 ]

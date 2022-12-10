@@ -18,6 +18,8 @@ There are multiple versions of this problem, but we will model a simple one. Sup
 
 5. Add constraint of minimum return requirement from the portfolio.
 
+5. Add objective function of minimum risk to the portfolio.
+
 ## Mathematical Model
 
 ### Decision Variables

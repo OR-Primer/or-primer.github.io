@@ -10,17 +10,31 @@ In practice logistics companies deal with this problem every day in order to fil
 
 ## Problem Description
 
-
+Suppose there is a "space" (e.g. a knapsack) with a single dimensional capacity of $W$. Also we have a set of items with value and weight properties. We would like to determine which items to include in the knapsack to get the total maximum value from the items in the knapsack. 
 
 ## Model Building Steps
 
+1. Define the decision variables ($x_i$) as whether item $i$ is in the knapsack or not. These decision variables are defined as binary.
 
+2. Define value ($v_i$) and weight ($w_i$) parameters for each item $i$.
+
+3. Define a capacity parameter ($W$) for the knapsack.
+
+4. Define capacity constraint as the total weight of items should not exceed capacity parameter.
+
+5. Define objective function as the maximization of total value of items included in the knapsack.
 
 ## Mathematical Model
 
 ### Decision Variables
 
 + $x_i$: Whether item $i$ is included in the knapsack or not (binary variable).
+
+### Parameters
+
++ $W$: Capacity of the knapsack.  
++ $v_i$: Value of item $i$.  
++ $w_i$: Weight of item $i$. 
 
 ### Model
 
