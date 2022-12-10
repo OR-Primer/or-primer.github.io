@@ -2,7 +2,7 @@
 
 Diet problem (or [Stigler Diet](https://en.wikipedia.org/wiki/Stigler_diet)) actually predates Linear Programming. It was coined by George Stigler in 1939. (Trivia: Stigler is a 1982 Economics Nobel Laureate) 
 
-## Problem
+## Problem Description
 
 Problem statement is as follows.
 

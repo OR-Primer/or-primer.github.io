@@ -1,0 +1,24 @@
+# Mixed Integer (Linear) Programming
+
+Mixed Integer (Linear) Programming (MIP/MILP) is a type of linear programming which also includes integers as decision variables. So rules are changed slightly.
+
+- **Neither** constraints **nor** the objective function may contain non-linear terms.
+- Not all decision variables are necessarily **continuous**. They **may be** *binary* or *integer*.
+- Decision variables can be either non-negative ($x \ge 0$) or unrestricted (**urs**).
+
+There are more restrictive versions as well such as Integer Programming (IP) which rules out continuous variables or even Binary Programming (BP) which every decision variable is either 1 or 0. 
+
+## Mathematical Model
+
+Mathematical representation of MIP/MILP model is almost the same as LP with the exception of the inclusion of integer (and binary) decision variable types.
+
+\begin{gather}
+\min c^\mathsf{T}x \\
+Ax + By + Cw = b \\ 
+x \ge 0  \\
+y \in \{0,1,...\} \\
+w \in \{0,1\} \\
+\end{gather}
+
+Here in our case $y$ represents the set of integer decision variables and $w$ represents binary decision variables. Even though binary decision variables are a subset of integer variables, due to their wide usage it is more convenient to make such a distinction.
+

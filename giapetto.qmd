@@ -3,7 +3,7 @@
 Giapetto is the introductory example of Linear Programming. This example is directly taken from [Winston's Operations Research (4th Edition)](https://www.amazon.com/Operations-Research-Applications-Algorithms-InfoTrac/dp/0534380581).
 
 
-## Problem
+## Problem Description
 
 "Giapetto's Woodcarving, Inc., manufactures two types of wooden toys: **soldiers** and **trains**.
 

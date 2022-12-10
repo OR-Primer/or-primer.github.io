@@ -16,10 +16,12 @@ book:
     - index.qmd
     - part: linprog.qmd
       chapters:
-        - linmodel.qmd
         - giapetto.qmd
         - markowitz.qmd
         - diet.qmd
+    - part: milpprog.qmd
+      chapters:
+        - knapsack.qmd
 format:
   html:
     theme: cosmo

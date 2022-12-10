@@ -30,7 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./linmodel.html" rel="next">
+<link href="./giapetto.html" rel="next">
 <link href="./index.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -133,22 +133,32 @@ window.MathJax = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./linmodel.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Mathematical Model</span></a>
+  <a href="./giapetto.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Giapetto Example</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./giapetto.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Giapetto Example</span></a>
+  <a href="./markowitz.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Markowitz Portfolio Example</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./markowitz.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Markowitz Portfolio Example</span></a>
+  <a href="./diet.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Diet Example</span></a>
   </div>
 </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./milpprog.html" class="sidebar-item-text sidebar-link">Mixed Integer (Linear) Programming</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./diet.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Diet Example</span></a>
+  <a href="./knapsack.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Knapsack Example</span></a>
   </div>
 </li>
       </ul>
@@ -158,7 +168,17 @@ window.MathJax = {
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#mathematical-model" id="toc-mathematical-model" class="nav-link active" data-scroll-target="#mathematical-model">Mathematical Model</a>
+  <ul class="collapse">
+  <li><a href="#parts-of-the-model" id="toc-parts-of-the-model" class="nav-link" data-scroll-target="#parts-of-the-model">Parts of the Model</a></li>
+  <li><a href="#indices" id="toc-indices" class="nav-link" data-scroll-target="#indices">Indices</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -186,8 +206,37 @@ window.MathJax = {
 <li>Decision variables are all <strong>continuous</strong>. They <strong>may not</strong> be <em>binary</em> or <em>integer</em>.</li>
 <li>Decision variables can be either non-negative (<span class="math inline">\(x \ge 0\)</span>) or unrestricted (<strong>urs</strong>).</li>
 </ul>
+<section id="mathematical-model" class="level2">
+<h2 class="anchored" data-anchor-id="mathematical-model">Mathematical Model</h2>
+<p>A mathematical representation of LP model is provided below.</p>
+<p><span class="math display">\[\begin{gather}
+\min c^\mathsf{T}x \\
+Ax = b \\
+x \ge 0  \\
+\end{gather}\]</span></p>
+<section id="parts-of-the-model" class="level3">
+<h3 class="anchored" data-anchor-id="parts-of-the-model">Parts of the Model</h3>
+<p>An LP model requires the following object types to be complete.</p>
+<ul>
+<li><strong>Decision Variables (DV)</strong>: Decision variables are the objects which the algorithm (i.e.&nbsp;solver) decides its value. A combination of a decision variable value set is a <strong>solution</strong>. In LP it is not possible to define a DV in non-linear (e.g., <span class="math inline">\(x^2\)</span>) terms or in interaction with other DVs (e.g., <span class="math inline">\(xy\)</span>). In the model, elements of <span class="math inline">\(x\)</span> are decision variables. <span class="math inline">\(x\)</span> is an <span class="math inline">\(n\)</span>-sized vector.</li>
+<li><strong>Coefficients and constants</strong>: It is possible to add pre-defined constants as coefficients to decision variables or by themselves. In the model, elements of <span class="math inline">\(A\)</span>, <span class="math inline">\(b\)</span> and <span class="math inline">\(c\)</span> are constants and coefficients. <span class="math inline">\(A\)</span> is an <span class="math inline">\(m\)</span> x <span class="math inline">\(n\)</span> matrix, <span class="math inline">\(b\)</span> is an <span class="math inline">\(m\)</span>-sized vector and <span class="math inline">\(c\)</span> is an <span class="math inline">\(n\)</span>-sized vector.</li>
+<li><strong>Constraints</strong>: Constraints are the rules which the decision variable values should satisfy in order to be a valid (i.e.&nbsp;<strong>feasible</strong>) solution. In the model, <span class="math inline">\(Ax = b\)</span> system of equations and non-negativity terms (<span class="math inline">\(x \ge 0\)</span>) are the constraints.</li>
+<li><strong>Objective Function</strong>: Objective function defines the direction (either minimization or maximization) and the evaluation formula of the solution quality. In the model, the term <span class="math inline">\(\min c^\mathsf{T}x\)</span> is the objective function and the solver will try to minimize <span class="math inline">\(c^\mathsf{T}x\)</span>.</li>
+</ul>
+</section>
+<section id="indices" class="level3">
+<h3 class="anchored" data-anchor-id="indices">Indices</h3>
+<p>There are also <strong>indices</strong> which we will use to define elements in decision variables, coefficients, constants and constraints. For instance <span class="math inline">\(x_{i}\)</span> is the <span class="math inline">\(i\)</span> th element of the decision variable vector and <span class="math inline">\(A_{i,j}\)</span> is the (i,j)th element of the coefficient matrix. Let’s rewrite the model.</p>
+<p><span class="math display">\[\begin{gather}
+\min \sum_{j=1}^{n} c_jx_j \tag{1} \\
+\sum_{j=1}^{n}A_{i,j}x_j = b_i \ \forall_{i \in 1..m}\tag{2}  \\
+x_j \ge 0 \ \forall_{j \in 1..n} \tag{3}  \\
+\end{gather}\]</span></p>
+<p>These parts may also be multi-dimensional. For instance <span class="math inline">\(x_{i,j,k,t}\)</span> is possible.</p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -330,8 +379,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./linmodel.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Mathematical Model</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./giapetto.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Giapetto Example</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

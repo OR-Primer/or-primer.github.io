@@ -2,7 +2,7 @@
 
 Harry Markowitz, one of the pioneers of computational finance and founder of [Modern Portfolio Theory](https://en.wikipedia.org/wiki/Modern_portfolio_theory), introduced his financial portfolio model in 1952. He defines portfolio items (e.g. stocks) with their risk (usually standard deviation or variance of returns) and reward (mean return). (Trivia: Markowitz is a Nobel Laureate in Economics, 1990)
 
-## Problem
+## Problem Description
 
 There are multiple versions of this problem, but we will model a simple one. Suppose there is an array of investment items with different risk and reward values. We would like form a portfolio to minimize the total risk, given a desired return level. Naturally, risk should be higher with the return.
 

@@ -1,0 +1,38 @@
+# Knapsack Example
+
+Knapsack problem is one of the fundamental problems of MILP. Knapsack is a representation of a capacity that should be filled with discrete items with various weights and value. The trick is to find the "optimal" set of items to add to knapsack in order to get the maximum value while adhering to capacity constraint.
+
+An entertaining example would be you are given a cart at a shopping mall and you are allowed to fill it for free. Would you fill it with cereal boxes or chocolate?
+
+A more "real life" example which we experience almost all the time would be packing for the airport which you are constrained with the size of your luggage and total weight of the luggage and its contents.
+
+In practice logistics companies deal with this problem every day in order to fill their trucks with packages of various sizes and weights.
+
+## Problem Description
+
+
+
+## Model Building Steps
+
+
+
+## Mathematical Model
+
+### Decision Variables
+
++ $x_i$: Whether item $i$ is included in the knapsack or not (binary variable).
+
+### Model
+
+\begin{gather}
+\max z = \sum_i v_ix_i  \label{eq:obj.fun} \\
+s.t. \nonumber \\
+\sum_i w_ix_i \le W \label{eq:knapsack.constraint} \\
+x_{i} \in \{0,1\} \label{eq:binary}\\
+\end{gather}
+
+### Constraints
+
++ (\ref{eq:obj.fun}) is the objective function to maximize total value for items included in the knapsack. 
++ (\ref{eq:knapsack.constraint}) is the capacity constraint of the knapsack. Each item $i$ has a weight parameter $w_i$ so items included in the knapsack should not weigh more than $W$.
++ (\ref{eq:binary}) Binary constraint for decision variables.

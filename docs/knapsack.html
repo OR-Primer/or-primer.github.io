@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Operations Research Primer - 2&nbsp; Mathematical Model</title>
+<title>Operations Research Primer - 5&nbsp; Knapsack Example</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./giapetto.html" rel="next">
-<link href="./linprog.html" rel="prev">
+<link href="./milpprog.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -78,7 +77,7 @@ window.MathJax = {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Mathematical Model</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Knapsack Example</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -133,22 +132,32 @@ window.MathJax = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./linmodel.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Mathematical Model</span></a>
+  <a href="./giapetto.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Giapetto Example</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./giapetto.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Giapetto Example</span></a>
+  <a href="./markowitz.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Markowitz Portfolio Example</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./markowitz.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Markowitz Portfolio Example</span></a>
+  <a href="./diet.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Diet Example</span></a>
   </div>
 </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./milpprog.html" class="sidebar-item-text sidebar-link">Mixed Integer (Linear) Programming</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./diet.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Diet Example</span></a>
+  <a href="./knapsack.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Knapsack Example</span></a>
   </div>
 </li>
       </ul>
@@ -162,8 +171,14 @@ window.MathJax = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#parts-of-a-model" id="toc-parts-of-a-model" class="nav-link active" data-scroll-target="#parts-of-a-model"><span class="toc-section-number">2.1</span>  Parts of a Model</a></li>
-  <li><a href="#indices" id="toc-indices" class="nav-link" data-scroll-target="#indices"><span class="toc-section-number">2.2</span>  Indices</a></li>
+  <li><a href="#problem-description" id="toc-problem-description" class="nav-link active" data-scroll-target="#problem-description"><span class="toc-section-number">5.1</span>  Problem Description</a></li>
+  <li><a href="#model-building-steps" id="toc-model-building-steps" class="nav-link" data-scroll-target="#model-building-steps"><span class="toc-section-number">5.2</span>  Model Building Steps</a></li>
+  <li><a href="#mathematical-model" id="toc-mathematical-model" class="nav-link" data-scroll-target="#mathematical-model"><span class="toc-section-number">5.3</span>  Mathematical Model</a>
+  <ul class="collapse">
+  <li><a href="#decision-variables" id="toc-decision-variables" class="nav-link" data-scroll-target="#decision-variables"><span class="toc-section-number">5.3.1</span>  Decision Variables</a></li>
+  <li><a href="#model" id="toc-model" class="nav-link" data-scroll-target="#model"><span class="toc-section-number">5.3.2</span>  Model</a></li>
+  <li><a href="#constraints" id="toc-constraints" class="nav-link" data-scroll-target="#constraints"><span class="toc-section-number">5.3.3</span>  Constraints</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -172,7 +187,7 @@ window.MathJax = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Mathematical Model</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Knapsack Example</span></h1>
 </div>
 
 
@@ -187,33 +202,43 @@ window.MathJax = {
 
 </header>
 
-<p>A mathematical representation of LP model is provided below.</p>
-<p><span class="math display">\[\begin{gather}
-\min c^\mathsf{T}x \\
-Ax = b \\
-x \ge 0  \\
-\end{gather}\]</span></p>
-<section id="parts-of-a-model" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="parts-of-a-model"><span class="header-section-number">2.1</span> Parts of a Model</h2>
-<p>An LP model requires the following object types to be complete.</p>
+<p>Knapsack problem is one of the fundamental problems of MILP. Knapsack is a representation of a capacity that should be filled with discrete items with various weights and value. The trick is to find the “optimal” set of items to add to knapsack in order to get the maximum value while adhering to capacity constraint.</p>
+<p>An entertaining example would be you are given a cart at a shopping mall and you are allowed to fill it for free. Would you fill it with cereal boxes or chocolate?</p>
+<p>A more “real life” example which we experience almost all the time would be packing for the airport which you are constrained with the size of your luggage and total weight of the luggage and its contents.</p>
+<p>In practice logistics companies deal with this problem every day in order to fill their trucks with packages of various sizes and weights.</p>
+<section id="problem-description" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="problem-description"><span class="header-section-number">5.1</span> Problem Description</h2>
+</section>
+<section id="model-building-steps" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="model-building-steps"><span class="header-section-number">5.2</span> Model Building Steps</h2>
+</section>
+<section id="mathematical-model" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="mathematical-model"><span class="header-section-number">5.3</span> Mathematical Model</h2>
+<section id="decision-variables" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" class="anchored" data-anchor-id="decision-variables"><span class="header-section-number">5.3.1</span> Decision Variables</h3>
 <ul>
-<li><strong>Decision Variables (DV)</strong>: Decision variables are the objects which the algorithm (i.e.&nbsp;solver) decides its value. A combination of a decision variable value set is a <strong>solution</strong>. In LP it is not possible to define a DV in non-linear (e.g., <span class="math inline">\(x^2\)</span>) terms or in interaction with other DVs (e.g., <span class="math inline">\(xy\)</span>). In the model, elements of <span class="math inline">\(x\)</span> are decision variables. <span class="math inline">\(x\)</span> is an <span class="math inline">\(n\)</span>-sized vector.</li>
-<li><strong>Coefficients and constants</strong>: It is possible to add pre-defined constants as coefficients to decision variables or by themselves. In the model, elements of <span class="math inline">\(A\)</span>, <span class="math inline">\(b\)</span> and <span class="math inline">\(c\)</span> are constants and coefficients. <span class="math inline">\(A\)</span> is an <span class="math inline">\(m\)</span> x <span class="math inline">\(n\)</span> matrix, <span class="math inline">\(b\)</span> is an <span class="math inline">\(m\)</span>-sized vector and <span class="math inline">\(c\)</span> is an <span class="math inline">\(n\)</span>-sized vector.</li>
-<li><strong>Constraints</strong>: Constraints are the rules which the decision variable values should satisfy in order to be a valid (i.e.&nbsp;<strong>feasible</strong>) solution. In the model, <span class="math inline">\(Ax = b\)</span> system of equations and non-negativity terms (<span class="math inline">\(x \ge 0\)</span>) are the constraints.</li>
-<li><strong>Objective Function</strong>: Objective function defines the direction (either minimization or maximization) and the evaluation formula of the solution quality. In the model, the term <span class="math inline">\(\min c^\mathsf{T}x\)</span> is the objective function and the solver will try to minimize <span class="math inline">\(c^\mathsf{T}x\)</span>.</li>
+<li><span class="math inline">\(x_i\)</span>: Whether item <span class="math inline">\(i\)</span> is included in the knapsack or not (binary variable).</li>
 </ul>
 </section>
-<section id="indices" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="indices"><span class="header-section-number">2.2</span> Indices</h2>
-<p>There are also <strong>indices</strong> which we will use to define elements in decision variables, coefficients, constants and constraints. For instance <span class="math inline">\(x_{i}\)</span> is the <span class="math inline">\(i\)</span> th element of the decision variable vector and <span class="math inline">\(A_{i,j}\)</span> is the (i,j)th element of the coefficient matrix. Let’s rewrite the model.</p>
+<section id="model" class="level3" data-number="5.3.2">
+<h3 data-number="5.3.2" class="anchored" data-anchor-id="model"><span class="header-section-number">5.3.2</span> Model</h3>
 <p><span class="math display">\[\begin{gather}
-\min \sum_{j=1}^{n} c_jx_j \tag{1} \\
-\sum_{j=1}^{n}A_{i,j}x_j = b_i \ \forall_{i \in 1..m}\tag{2}  \\
-x_j \ge 0 \ \forall_{j \in 1..n} \tag{3}  \\
+\max z = \sum_i v_ix_i  \label{eq:obj.fun} \\
+s.t. \nonumber \\
+\sum_i w_ix_i \le W \label{eq:knapsack.constraint} \\
+x_{i} \in \{0,1\} \label{eq:binary}\\
 \end{gather}\]</span></p>
-<p>These parts may also be multi-dimensional. For instance <span class="math inline">\(x_{i,j,k,t}\)</span> is possible.</p>
+</section>
+<section id="constraints" class="level3" data-number="5.3.3">
+<h3 data-number="5.3.3" class="anchored" data-anchor-id="constraints"><span class="header-section-number">5.3.3</span> Constraints</h3>
+<ul>
+<li>(<span class="math inline">\(\ref{eq:obj.fun}\)</span>) is the objective function to maximize total value for items included in the knapsack.</li>
+<li>(<span class="math inline">\(\ref{eq:knapsack.constraint}\)</span>) is the capacity constraint of the knapsack. Each item <span class="math inline">\(i\)</span> has a weight parameter <span class="math inline">\(w_i\)</span> so items included in the knapsack should not weigh more than <span class="math inline">\(W\)</span>.</li>
+<li>(<span class="math inline">\(\ref{eq:binary}\)</span>) Binary constraint for decision variables.</li>
+</ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -352,14 +377,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./linprog.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Linear Programming</span>
+      <a href="./milpprog.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Mixed Integer (Linear) Programming</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./giapetto.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Giapetto Example</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

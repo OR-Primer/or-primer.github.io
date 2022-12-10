@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Operations Research Primer - 2&nbsp; Giapetto Example</title>
+<title>Operations Research Primer - Mixed Integer (Linear) Programming</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./markowitz.html" rel="next">
-<link href="./linprog.html" rel="prev">
+<link href="./knapsack.html" rel="next">
+<link href="./diet.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -78,7 +78,7 @@ window.MathJax = {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Giapetto Example</span></h1>
+      <h1 class="quarto-secondary-nav-title">Mixed Integer (Linear) Programming</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -133,7 +133,7 @@ window.MathJax = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./giapetto.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Giapetto Example</span></a>
+  <a href="./giapetto.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Giapetto Example</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -150,7 +150,7 @@ window.MathJax = {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./milpprog.html" class="sidebar-item-text sidebar-link">Mixed Integer (Linear) Programming</a>
+            <a href="./milpprog.html" class="sidebar-item-text sidebar-link active">Mixed Integer (Linear) Programming</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -172,14 +172,7 @@ window.MathJax = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#problem-description" id="toc-problem-description" class="nav-link active" data-scroll-target="#problem-description"><span class="toc-section-number">2.1</span>  Problem Description</a></li>
-  <li><a href="#model-building-steps" id="toc-model-building-steps" class="nav-link" data-scroll-target="#model-building-steps"><span class="toc-section-number">2.2</span>  Model Building Steps</a></li>
-  <li><a href="#mathematical-model" id="toc-mathematical-model" class="nav-link" data-scroll-target="#mathematical-model"><span class="toc-section-number">2.3</span>  Mathematical Model</a>
-  <ul class="collapse">
-  <li><a href="#decision-variables" id="toc-decision-variables" class="nav-link" data-scroll-target="#decision-variables"><span class="toc-section-number">2.3.1</span>  Decision Variables</a></li>
-  <li><a href="#model" id="toc-model" class="nav-link" data-scroll-target="#model"><span class="toc-section-number">2.3.2</span>  Model</a></li>
-  <li><a href="#constraints" id="toc-constraints" class="nav-link" data-scroll-target="#constraints"><span class="toc-section-number">2.3.3</span>  Constraints</a></li>
-  </ul></li>
+  <li><a href="#mathematical-model" id="toc-mathematical-model" class="nav-link active" data-scroll-target="#mathematical-model">Mathematical Model</a></li>
   </ul>
 </nav>
     </div>
@@ -188,7 +181,7 @@ window.MathJax = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Giapetto Example</span></h1>
+<h1 class="title d-none d-lg-block">Mixed Integer (Linear) Programming</h1>
 </div>
 
 
@@ -203,62 +196,26 @@ window.MathJax = {
 
 </header>
 
-<p>Giapetto is the introductory example of Linear Programming. This example is directly taken from <a href="https://www.amazon.com/Operations-Research-Applications-Algorithms-InfoTrac/dp/0534380581">Winston’s Operations Research (4th Edition)</a>.</p>
-<section id="problem-description" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="problem-description"><span class="header-section-number">2.1</span> Problem Description</h2>
-<p>“Giapetto’s Woodcarving, Inc., manufactures two types of wooden toys: <strong>soldiers</strong> and <strong>trains</strong>.</p>
-<p>A soldier sells for <strong>$27</strong> and uses <strong>$10</strong> worth of raw materials. Each soldier that is manufactured increases Giapetto’s variable labor and overhead costs by <strong>$14</strong>. A train sells for <strong>$21</strong> and uses <strong>$9</strong> worth of raw materials. Each train built increases Giapetto’s variable labor and overhead costs by <strong>$10</strong>.</p>
-<p>The manufacture of wooden soldiers and trains requires two types of skilled labor: <strong>carpentry</strong> and <strong>finishing</strong>. A soldier requires <strong>2 hours</strong> of finishing labor and <strong>1 hour</strong> of carpentry labor. A train requires <strong>1 hour</strong> of finishing labor and <strong>1 hour</strong> of carpentry labor.</p>
-<p>Each week, Giapetto can acquire all of the needed raw material, but he is only allotted <strong>100 finishing hours</strong> and <strong>80 carpentry hours</strong>. There is an unlimited demand for trains. However, <strong>at most, 40 soldiers are sold</strong> each week.</p>
-<p>Giapetto wants to <strong>maximize his weekly profit</strong> (Revenues - Costs). Formulate a mathematical model for Giapetto’s situation that can be used to maximize Giapetto’s weekly profit.”</p>
-<p>Let’s convert problem statement into a number of model building steps in the next section.</p>
-</section>
-<section id="model-building-steps" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="model-building-steps"><span class="header-section-number">2.2</span> Model Building Steps</h2>
-<ol type="1">
-<li><p>Let’s calculate the net profit of a soldier and a train, respectively. Sale price of a soldier is <strong>$27</strong>, raw material cost is <strong>$10</strong> and labor/overhead costs are <strong>$14</strong>. So producing a soldier toy yields <strong>$3</strong> of net profit. With the same process a train’s net profit is <strong>$2</strong>.</p></li>
-<li><p>Our aim is to maximize our total net profit. Let’s denote <span class="math inline">\(x_{1}\)</span> as the number of soldiers produced and <span class="math inline">\(x_{2}\)</span> as the number of trains produced. Values <span class="math inline">\(x_{1}\)</span> and <span class="math inline">\(x_{2}\)</span> will be determined by the solver. Therefore they are <strong>decision variables</strong>.</p></li>
-<li><p>So, our total net profit can be defined as <span class="math inline">\(z = 3x_{1} + 2x_{2}\)</span>. This is also our <strong>objective function</strong>.</p></li>
-<li><p>For finishing tasks, a soldier requires <strong>2 hours</strong> and a train requires <strong>1 hour</strong> of labor. Finishing labor capacity is <strong>100 hours</strong>. So, its mathematical expression is <span class="math inline">\(2x_{1} + x_{2} \le 100\)</span>.</p></li>
-<li><p>For carpentry tasks, a soldier requires <strong>1 hour</strong> and a train requires <strong>1 hour</strong> of labor. Carpentry labor capacity is <strong>80 hours</strong>. So, its mathematical expression is <span class="math inline">\(x_{1} + x_{2} \le 80\)</span>.</p></li>
-<li><p>Demand for soldiers is limited with 40. So, its mathematical expression is <span class="math inline">\(x_{1} \le 40\)</span>.</p></li>
-<li><p>Also, it is not possible to sell negative amounts of soldiers or toys (no returns). Therefore both <span class="math inline">\(x_{1}\)</span> and <span class="math inline">\(x_{2}\)</span> should be greater than zero (non-negativity constraints).</p></li>
-</ol>
-<p>Let’s gather all the steps in a single model in the next section.</p>
-</section>
-<section id="mathematical-model" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="mathematical-model"><span class="header-section-number">2.3</span> Mathematical Model</h2>
-<section id="decision-variables" class="level3" data-number="2.3.1">
-<h3 data-number="2.3.1" class="anchored" data-anchor-id="decision-variables"><span class="header-section-number">2.3.1</span> Decision Variables</h3>
+<p>Mixed Integer (Linear) Programming (MIP/MILP) is a type of linear programming which also includes integers as decision variables. So rules are changed slightly.</p>
 <ul>
-<li><span class="math inline">\(x_1\)</span>: Number of soldiers to be manufactured.<br>
-</li>
-<li><span class="math inline">\(x_2\)</span>: Number of trains to be manufactured.</li>
+<li><strong>Neither</strong> constraints <strong>nor</strong> the objective function may contain non-linear terms.</li>
+<li>Not all decision variables are necessarily <strong>continuous</strong>. They <strong>may be</strong> <em>binary</em> or <em>integer</em>.</li>
+<li>Decision variables can be either non-negative (<span class="math inline">\(x \ge 0\)</span>) or unrestricted (<strong>urs</strong>).</li>
 </ul>
-</section>
-<section id="model" class="level3" data-number="2.3.2">
-<h3 data-number="2.3.2" class="anchored" data-anchor-id="model"><span class="header-section-number">2.3.2</span> Model</h3>
+<p>There are more restrictive versions as well such as Integer Programming (IP) which rules out continuous variables or even Binary Programming (BP) which every decision variable is either 1 or 0.</p>
+<section id="mathematical-model" class="level2">
+<h2 class="anchored" data-anchor-id="mathematical-model">Mathematical Model</h2>
+<p>Mathematical representation of MIP/MILP model is almost the same as LP with the exception of the inclusion of integer (and binary) decision variable types.</p>
 <p><span class="math display">\[\begin{gather}
-\max z = 3x_{1} + 2x_{2} \label{eq:obj.fun} \\
-s.t. \nonumber \\
-2x_{1} + x_{2} \le 100 \label{eq:finishing.constraint} \\
-x_{1} + x_{2} \le 80 \label{eq:carpentry.constraint}\\
-x_{1} \le 40 \label{eq:demand.constraint}\\
-x_{1},x_{2} \ge 0 \label{eq:non-negativity}\\
+\min c^\mathsf{T}x \\
+Ax + By + Cw = b \\
+x \ge 0  \\
+y \in \{0,1,...\} \\
+w \in \{0,1\} \\
 \end{gather}\]</span></p>
-</section>
-<section id="constraints" class="level3" data-number="2.3.3">
-<h3 data-number="2.3.3" class="anchored" data-anchor-id="constraints"><span class="header-section-number">2.3.3</span> Constraints</h3>
-<ul>
-<li>(<span class="math inline">\(\ref{eq:obj.fun}\)</span>) is the objective function to maximize total profits. Each soldier yields <strong>$3</strong> profit and each train <strong>$2</strong>.</li>
-<li>(<span class="math inline">\(\ref{eq:finishing.constraint}\)</span>) is the finishing task capacity constraint. Each soldier requires <strong>2 hours</strong> of labor and each train requires <strong>1 hour</strong>. Total capacity for finishing task is <strong>100 hours</strong>.</li>
-<li>(<span class="math inline">\(\ref{eq:carpentry.constraint}\)</span>) is the carpentry task capacity constraint. Each soldier requires <strong>1 hour</strong> of labor and each train requires <strong>1 hour</strong>. Total capacity for finishing task is <strong>80 hours</strong>.</li>
-<li>(<span class="math inline">\(\ref{eq:demand.constraint}\)</span>) is the maximum demand constraint for soldiers. Maximum available demand for soldiers is <strong>40</strong>.</li>
-<li>(<span class="math inline">\(\ref{eq:non-negativity}\)</span>) Non-negativity constraint. It is not possible to sell negative amount of each toys (i.e.&nbsp;no backorders, no returns etc. in this case).</li>
-</ul>
+<p>Here in our case <span class="math inline">\(y\)</span> represents the set of integer decision variables and <span class="math inline">\(w\)</span> represents binary decision variables. Even though binary decision variables are a subset of integer variables, due to their wide usage it is more convenient to make such a distinction.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -397,13 +354,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./linprog.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Linear Programming</span>
+      <a href="./diet.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Diet Example</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./markowitz.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Markowitz Portfolio Example</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./knapsack.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Knapsack Example</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

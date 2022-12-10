@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Operations Research Primer - 5&nbsp; Diet Example</title>
+<title>Operations Research Primer - 4&nbsp; Diet Example</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,6 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./milpprog.html" rel="next">
 <link href="./markowitz.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -77,7 +78,7 @@ window.MathJax = {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Diet Example</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Diet Example</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -132,22 +133,32 @@ window.MathJax = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./linmodel.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Mathematical Model</span></a>
+  <a href="./giapetto.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Giapetto Example</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./giapetto.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Giapetto Example</span></a>
+  <a href="./markowitz.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Markowitz Portfolio Example</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./markowitz.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Markowitz Portfolio Example</span></a>
+  <a href="./diet.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Diet Example</span></a>
   </div>
 </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./milpprog.html" class="sidebar-item-text sidebar-link">Mixed Integer (Linear) Programming</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./diet.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Diet Example</span></a>
+  <a href="./knapsack.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Knapsack Example</span></a>
   </div>
 </li>
       </ul>
@@ -161,14 +172,14 @@ window.MathJax = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#problem" id="toc-problem" class="nav-link active" data-scroll-target="#problem"><span class="toc-section-number">5.1</span>  Problem</a></li>
-  <li><a href="#model-building-steps" id="toc-model-building-steps" class="nav-link" data-scroll-target="#model-building-steps"><span class="toc-section-number">5.2</span>  Model Building Steps</a></li>
-  <li><a href="#mathematical-model" id="toc-mathematical-model" class="nav-link" data-scroll-target="#mathematical-model"><span class="toc-section-number">5.3</span>  Mathematical Model</a>
+  <li><a href="#problem-description" id="toc-problem-description" class="nav-link active" data-scroll-target="#problem-description"><span class="toc-section-number">4.1</span>  Problem Description</a></li>
+  <li><a href="#model-building-steps" id="toc-model-building-steps" class="nav-link" data-scroll-target="#model-building-steps"><span class="toc-section-number">4.2</span>  Model Building Steps</a></li>
+  <li><a href="#mathematical-model" id="toc-mathematical-model" class="nav-link" data-scroll-target="#mathematical-model"><span class="toc-section-number">4.3</span>  Mathematical Model</a>
   <ul class="collapse">
-  <li><a href="#decision-variables" id="toc-decision-variables" class="nav-link" data-scroll-target="#decision-variables"><span class="toc-section-number">5.3.1</span>  Decision Variables</a></li>
-  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters"><span class="toc-section-number">5.3.2</span>  Parameters</a></li>
-  <li><a href="#model" id="toc-model" class="nav-link" data-scroll-target="#model"><span class="toc-section-number">5.3.3</span>  Model</a></li>
-  <li><a href="#constraints" id="toc-constraints" class="nav-link" data-scroll-target="#constraints"><span class="toc-section-number">5.3.4</span>  Constraints</a></li>
+  <li><a href="#decision-variables" id="toc-decision-variables" class="nav-link" data-scroll-target="#decision-variables"><span class="toc-section-number">4.3.1</span>  Decision Variables</a></li>
+  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters"><span class="toc-section-number">4.3.2</span>  Parameters</a></li>
+  <li><a href="#model" id="toc-model" class="nav-link" data-scroll-target="#model"><span class="toc-section-number">4.3.3</span>  Model</a></li>
+  <li><a href="#constraints" id="toc-constraints" class="nav-link" data-scroll-target="#constraints"><span class="toc-section-number">4.3.4</span>  Constraints</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -178,7 +189,7 @@ window.MathJax = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Diet Example</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Diet Example</span></h1>
 </div>
 
 
@@ -194,15 +205,15 @@ window.MathJax = {
 </header>
 
 <p>Diet problem (or <a href="https://en.wikipedia.org/wiki/Stigler_diet">Stigler Diet</a>) actually predates Linear Programming. It was coined by George Stigler in 1939. (Trivia: Stigler is a 1982 Economics Nobel Laureate)</p>
-<section id="problem" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="problem"><span class="header-section-number">5.1</span> Problem</h2>
+<section id="problem-description" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="problem-description"><span class="header-section-number">4.1</span> Problem Description</h2>
 <p>Problem statement is as follows.</p>
 <p>“For a moderately active man weighing 154 pounds, how much of each of 77 foods should be eaten on a daily basis so that the man’s intake of nine nutrients will be at least equal to the recommended dietary allowances (RDAs) suggested by the National Research Council in 1943, with the cost of the diet being minimal?”</p>
 <p>Stigler identifies 9 nutrients (calories, protein, calcium, iron etc.) and their recommended intakes. Also there is a list of nutrients with their nutritional data per dollar. Full data is given in the following (<a href="https://developers.google.com/optimization/lp/stigler_diet">link</a>).</p>
 <p>Stigler wants the minimal cost menu which will satisfy nutritional requirements.</p>
 </section>
-<section id="model-building-steps" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="model-building-steps"><span class="header-section-number">5.2</span> Model Building Steps</h2>
+<section id="model-building-steps" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="model-building-steps"><span class="header-section-number">4.2</span> Model Building Steps</h2>
 <ol type="1">
 <li><p>Define the decision variable <span class="math inline">\(x_{i}\)</span> as the budget in dollars assigned to food <span class="math inline">\(i\)</span>.</p></li>
 <li><p>Define nutritional requirement parameter as <span class="math inline">\(b_{j}\)</span> for the nutrient <span class="math inline">\(j\)</span>.</p></li>
@@ -211,23 +222,23 @@ window.MathJax = {
 <li><p>Define constraints to satisfy nutritional demand by the food items.</p></li>
 </ol>
 </section>
-<section id="mathematical-model" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="mathematical-model"><span class="header-section-number">5.3</span> Mathematical Model</h2>
-<section id="decision-variables" class="level3" data-number="5.3.1">
-<h3 data-number="5.3.1" class="anchored" data-anchor-id="decision-variables"><span class="header-section-number">5.3.1</span> Decision Variables</h3>
+<section id="mathematical-model" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="mathematical-model"><span class="header-section-number">4.3</span> Mathematical Model</h2>
+<section id="decision-variables" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="decision-variables"><span class="header-section-number">4.3.1</span> Decision Variables</h3>
 <ul>
 <li><span class="math inline">\(x_{i}\)</span>: Total budget allocated to food item <span class="math inline">\(i\)</span>.</li>
 </ul>
 </section>
-<section id="parameters" class="level3" data-number="5.3.2">
-<h3 data-number="5.3.2" class="anchored" data-anchor-id="parameters"><span class="header-section-number">5.3.2</span> Parameters</h3>
+<section id="parameters" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="parameters"><span class="header-section-number">4.3.2</span> Parameters</h3>
 <ul>
 <li><span class="math inline">\(b_{j}\)</span>: Nutritional requirement level of nutrient <span class="math inline">\(j\)</span>.</li>
 <li><span class="math inline">\(a_{i,j}\)</span>: Nutritional content of food item <span class="math inline">\(i\)</span> for nutrient <span class="math inline">\(j\)</span>.</li>
 </ul>
 </section>
-<section id="model" class="level3" data-number="5.3.3">
-<h3 data-number="5.3.3" class="anchored" data-anchor-id="model"><span class="header-section-number">5.3.3</span> Model</h3>
+<section id="model" class="level3" data-number="4.3.3">
+<h3 data-number="4.3.3" class="anchored" data-anchor-id="model"><span class="header-section-number">4.3.3</span> Model</h3>
 <p><span class="math display">\[\begin{gather}
 \min z = \sum_{i} x_{i} \label{eq:obj.fun} \\
 s.t. \nonumber \\
@@ -235,8 +246,8 @@ s.t. \nonumber \\
 x_{i} \ge 0, \ \forall_i \label{eq:non-negativity}\\
 \end{gather}\]</span></p>
 </section>
-<section id="constraints" class="level3" data-number="5.3.4">
-<h3 data-number="5.3.4" class="anchored" data-anchor-id="constraints"><span class="header-section-number">5.3.4</span> Constraints</h3>
+<section id="constraints" class="level3" data-number="4.3.4">
+<h3 data-number="4.3.4" class="anchored" data-anchor-id="constraints"><span class="header-section-number">4.3.4</span> Constraints</h3>
 <ul>
 <li>(<span class="math inline">\(\ref{eq:obj.fun}\)</span>) is the objective function to minimize total spending.</li>
 <li>(<span class="math inline">\(\ref{eq:nutrition.constraints}\)</span>) is the set of constraints to satisfy all nutritional requirements.</li>
@@ -384,10 +395,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./markowitz.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Markowitz Portfolio Example</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Markowitz Portfolio Example</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./milpprog.html" class="pagination-link">
+        <span class="nav-page-text">Mixed Integer (Linear) Programming</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
